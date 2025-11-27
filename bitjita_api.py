@@ -64,6 +64,39 @@ def get_claim_aggregate_inventories(claimInventories: dict, buildingIDs = []):
 
     return(items)
 
+def get_items_info(search_str = None):
+    url = "https://bitjita.com/api/items"
+    url_overview = url
+    if search_str is not None:
+        url_overview = url + "?=".join(e for e in search_str if e.isalnum())
+
+    data = read_url_json(url_overview)
+    ret_dict = {}
+    for entry in data["items"]:
+        key = entry["id"]
+        # rate limit is 250 request / minute on bitjita. This needs to be slowed down
+        # data_detail = read_url_json(url + '/{}'.format(key))
+        ret_dict[key] = entry
+        ret_dict[key].pop("id")
+    return(ret_dict)
+
+def get_cargos_info(search_str = None):
+    url = "https://bitjita.com/api/cargo"
+    url_overview = url
+    if search_str is not None:
+        url_overview = url_overview + "?=".join(e for e in search_str if e.isalnum())
+
+
+    data = read_url_json(url_overview)
+    ret_dict = {}
+    for entry in data["cargos"]:
+        key = entry["id"]
+        # rate limit is 250 request / minute on bitjita. This needs to be slowed down
+        # data_detail = read_url_json(url + '/{}'.format(key))
+        ret_dict[key] = entry
+        ret_dict[key].pop("id")
+    return(ret_dict)
+
 def get_player_itemtype(itemtypeID):
     if itemtypeID == 0:
         return('item')

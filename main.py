@@ -31,3 +31,7 @@ for k,v in player_inventories.items():
     inventory_summary.add_item(k,v,source='Player')
 for k,v in claim_inventories.items():
     inventory_summary.add_item(k,v,source='Claim')
+
+cargo_info = api.get_cargos_info()
+item_info = api.get_items_info()
+
