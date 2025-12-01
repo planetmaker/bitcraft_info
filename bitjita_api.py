@@ -14,7 +14,7 @@ def get_url_claim_inventories(claimID: int):
 def get_url_player_inventories(playerID: int):
     return("https://bitjita.com/api/players/{}/inventories".format(playerID))
 
-def get_url_logs(buildingID: int):
+def get_url_storage_logs(buildingID: int):
     return("https://bitjita.com/api/logs/storage?buildingEntityId={}".format(buildingID))
 
 def get_claim_inventories(claimID: int):
