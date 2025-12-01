@@ -24,6 +24,13 @@ def get_url_items_info(search_str = None):
         url.join(e for e in search_str if e.isalnum())
     return url
 
+def get_url_cargos_info(search_str = None):
+    url = "https://bitjita.com/api/cargo"
+    if search_str is not None:
+        url.join("?=")
+        url.join(e for e in search_str if e.isalnum())
+    return url
+
 def get_claim_inventories(claimID: int):
     url = get_url_claim_inventories(claimID)
     return(read_url_json(url))
@@ -72,7 +79,7 @@ def get_claim_aggregate_inventories(claimInventories: dict, buildingIDs = []):
     return(items)
 
 def get_items_info(search_str = None):
-    url = url_get_items_info(search_str)
+    url = get_url_items_info(search_str)
 
     data = read_url_json(url)
     ret_dict = {}
@@ -85,13 +92,9 @@ def get_items_info(search_str = None):
     return(ret_dict)
 
 def get_cargos_info(search_str = None):
-    url = "https://bitjita.com/api/cargo"
-    url_overview = url
-    if search_str is not None:
-        url_overview = url_overview + "?=".join(e for e in search_str if e.isalnum())
+    url = get_url_cargos_info(search_str)
 
-
-    data = read_url_json(url_overview)
+    data = read_url_json(url)
     ret_dict = {}
     for entry in data["cargos"]:
         key = int(entry["id"])

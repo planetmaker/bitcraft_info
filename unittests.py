@@ -68,5 +68,18 @@ class TestBitjitaAPI(unittest.TestCase):
         self.assertTrue('rarity' in itemsinfo.get('items')[0])
         self.assertTrue('volume' in itemsinfo.get('items')[0])
 
+    def test_GetCarogsInfo(self):
+        url = api.get_url_cargos_info()
+        carogosinfo = read_url_json(url)
+
+        self.assertTrue('cargos' in carogosinfo)
+        self.assertTrue('id' in carogosinfo.get('cargos')[0])
+        self.assertTrue('name' in carogosinfo.get('cargos')[0])
+        self.assertTrue('description' in carogosinfo.get('cargos')[0])
+        self.assertTrue('tag' in carogosinfo.get('cargos')[0])
+        self.assertTrue('tier' in carogosinfo.get('cargos')[0])
+        self.assertTrue('rarity' in carogosinfo.get('cargos')[0])
+        self.assertTrue('volume' in carogosinfo.get('cargos')[0])
+
 if __name__ == '__main__':
     unittest.main()
