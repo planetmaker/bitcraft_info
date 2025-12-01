@@ -33,6 +33,50 @@ config = {
         (360287970322797656, 'Firesand / Metal Solvent Barter')
     ],
     'player_inventory_ids': [(360287970233265811,"Personal Chest Elke")],
+    'cargo_search_strings': [
+        "Stone Carving Package",
+        "Bark Package",
+        "Parchment Package",
+        "Flower Package",
+        "Ink Package",
+        "Pigment Package"
+        ],
+    'item_search_strings': [
+        # Name search string, tag search string)
+        (" Flower", "Flower"),
+        (" Pigment", "Pigment"),
+        (" Fish Oil", "Fish Oil"),
+        (" Ink", "Ink"),
+        (" Tree Bark", "Bark"),
+        (" Parchment", "Parchment"),
+        (" Stone Carvings", "Ancient Hieroglyphs"),
+        (" Stone Diagrams", "Ancient Hieroglyphs"),
+        (" Study Journal", "Journal"),
+
+        (" Wood Polish", "Wood Polish"),
+        (" Leather Treatment", "Leather Solvent"),
+        (" Metal Solvent", "Metal Solvent"),
+        (" Firesand", "Firesand"),
+
+#        (" Citric Berry", "Citric Berry"),
+#        (" Resin", "Resin"),
+        (" Braxite", "Pebbles"),
+#        (" Shells", "Crushed Shells"),
+#        (" Gypsite", "Gypsite"),
+#        (" Crop Oil", "Crop Oil"),
+        (" Glass Vial", "Vial"),
+#        (" Sand", "Sand"),
+#        ("Water Bucket", "Water"),
+#        ("Pitch", "Pitch"),
+
+        (" Cloth Research", "Cloth Research"),
+        (" Leather Research", "Leather Research"),
+        (" Metal Research", "Metal Research"),
+        (" Outpost Research", "Outpost Research"),
+        (" Stone Research", "Stone Research"),
+        (" Wood Research", "Wood Research"),
+        (" Codex", "Codex"),
+        ],
     'items_for_report' : [
         (1210037,    "T1 Stone Carvings"),
         (2210037,    "T2 Stone Carvings"),
