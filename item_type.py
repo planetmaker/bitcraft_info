@@ -42,6 +42,7 @@ class entities:
 
     def get_details(self, itemID: int):
         if "craftingRecipes" not in self.stuff.get(itemID):
+            # sometimes it might be a cargo as available under https://bitjita.com/api/cargo/{}
             detail_data = read_url_json("https://bitjita.com/api/items/{}".format(itemID))
             print("Adding details for ID {}".format(itemID))
             for k,v in detail_data.items():
@@ -51,6 +52,35 @@ class entities:
                 self.stuff[itemID][k] = v
         return self.stuff.get(itemID)
 
+    def get_recursive_crafting_requirements(self, start: dict) -> dict:
+        detail_data = self.get_details(start["itemId"])
+        try:
+            recipes = detail_data.get('craftingRecipes')
+            # Make sure we select a recipe which consumes items
+            index = 0
+            while recipes[index].get['consumedItemStacks'][0].get('item_type') != 'item':
+                index += 1
+            recipe = recipes[index]
+        except:
+            recipe = []
+
+        ret = start
+        ret["ingredients"] = []
+        for ingredient in recipe['consumedItemStacks']:
+            ingredient_dict = {'itemId': ingredient['item_id'], 'quantity': ingredient['quantity'], 'ingredients': []}
+            self.get_recursive_crafting_requirements(ingredient_dict)
+            ret["ingredients"].append(ingredient_dict)
+        return(ret)
+
+
+    def get_crafting_requirements(self, itemID: int, amount=1) -> dict:
+        ret = {'itemId': itemID, 'amount': amount, 'ingredients': []}
+        detail_data = self.get_details(itemID)
+        recipe = detail_data.get('craftingRecipes')[0]
+        for ingredient in recipe['consumedItemStacks']:
+            ret['ingredients'].append({'itemId': ingredient['item_id'], 'quantity': ingredient['quantity'], 'ingredients': []})
+
+        return(ret)
 
     def search_by_name_and_tag(self, name_str: str, tag_str: str):
         ret_list = []
