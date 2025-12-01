@@ -27,7 +27,7 @@ class entities:
         return(self.get("name", itemID))
 
     def get_tag(self, itemID: int):
-        return(elf.get("tag", itemID))
+        return(self.get("tag", itemID))
 
     def get_tier(self, itemID: int):
         return(self.get("tier", itemID))
@@ -39,6 +39,18 @@ class entities:
         except:
             print("Item {} not found".format(itemID))
         return ret
+
+    def get_details(self, itemID: int):
+        if "craftingRecipes" not in self.stuff.get(itemID):
+            detail_data = read_url_json("https://bitjita.com/api/items/{}".format(itemID))
+            print("Adding details for ID {}".format(itemID))
+            for k,v in detail_data.items():
+                if k == "item":
+                    continue
+                print("Adding: {}: {}".format(k,v))
+                self.stuff[itemID][k] = v
+        return self.stuff.get(itemID)
+
 
     def search_by_name_and_tag(self, name_str: str, tag_str: str):
         ret_list = []
