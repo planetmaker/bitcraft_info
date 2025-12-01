@@ -10,6 +10,7 @@ import bitjita_api as api
 from helpers import read_url_json
 from inventories import inventories_summary
 from config import config
+from item_type import entities
 
 inventory_summary = inventories_summary()
 
@@ -32,6 +33,6 @@ for k,v in player_inventories.items():
 for k,v in claim_inventories.items():
     inventory_summary.add_item(k,v,source='Claim')
 
-cargo_info = api.get_cargos_info()
-item_info = api.get_items_info()
-
+# cargos_info = api.get_cargos_info()
+# items_info = api.get_items_info()
+itemscargos = entities()
