@@ -32,4 +32,12 @@ class entities:
     def get_tier(self, itemID: int):
         return(self.get("tier", itemID))
 
+    def search_by_name_and_tag(self, name_str: str, tag_str: str):
+        ret_list = []
+        for entryID, entry in self.stuff.items():
+            if entry["name"].endswith(name_str) and tag_str in entry["tag"]:
+                ret_list.append(entryID)
+                print("Adding {} (ID: {})".format(entry["name"], entryID))
+        return(ret_list)
+
 

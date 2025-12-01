@@ -36,3 +36,8 @@ for k,v in claim_inventories.items():
 # cargos_info = api.get_cargos_info()
 # items_info = api.get_items_info()
 itemscargos = entities()
+
+scholar_items = []
+for item in config["item_search_strings"]:
+    sublist = itemscargos.search_by_name_and_tag(item[0], item[1])
+    scholar_items.extend(sublist)
