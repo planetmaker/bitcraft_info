@@ -73,7 +73,7 @@ def get_items_info(search_str = None):
     data = read_url_json(url_overview)
     ret_dict = {}
     for entry in data["items"]:
-        key = entry["id"]
+        key = int(entry["id"])
         # rate limit is 250 request / minute on bitjita. This needs to be slowed down
         # data_detail = read_url_json(url + '/{}'.format(key))
         ret_dict[key] = entry
@@ -90,7 +90,7 @@ def get_cargos_info(search_str = None):
     data = read_url_json(url_overview)
     ret_dict = {}
     for entry in data["cargos"]:
-        key = entry["id"]
+        key = int(entry["id"])
         # rate limit is 250 request / minute on bitjita. This needs to be slowed down
         # data_detail = read_url_json(url + '/{}'.format(key))
         ret_dict[key] = entry
