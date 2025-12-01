@@ -8,6 +8,7 @@ Created on Tue Dec  2 13:57:22 2025
 
 import unittest
 import bitjita_api as api
+from helpers import read_url_json
 
 class TestBitjitaAPI(unittest.TestCase):
 
@@ -54,6 +55,18 @@ class TestBitjitaAPI(unittest.TestCase):
         self.assertTrue('items' in player_inventories)
         self.assertTrue('cargos' in player_inventories)
 
+    def test_GetItemsInfo(self):
+        url = api.get_url_items_info()
+        itemsinfo = read_url_json(url)
+
+        self.assertTrue('items' in itemsinfo)
+        self.assertTrue('id' in itemsinfo.get('items')[0])
+        self.assertTrue('name' in itemsinfo.get('items')[0])
+        self.assertTrue('description' in itemsinfo.get('items')[0])
+        self.assertTrue('tag' in itemsinfo.get('items')[0])
+        self.assertTrue('tier' in itemsinfo.get('items')[0])
+        self.assertTrue('rarity' in itemsinfo.get('items')[0])
+        self.assertTrue('volume' in itemsinfo.get('items')[0])
 
 if __name__ == '__main__':
     unittest.main()
