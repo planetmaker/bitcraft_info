@@ -32,6 +32,14 @@ class entities:
     def get_tier(self, itemID: int):
         return(self.get("tier", itemID))
 
+    def get_all(self, itemID: int):
+        ret = None
+        try:
+            ret = self.stuff.get(itemID)
+        except:
+            print("Item {} not found".format(itemID))
+        return ret
+
     def search_by_name_and_tag(self, name_str: str, tag_str: str):
         ret_list = []
         for entryID, entry in self.stuff.items():
