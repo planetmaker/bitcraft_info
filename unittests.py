@@ -37,6 +37,23 @@ class TestBitjitaAPI(unittest.TestCase):
         self.assertTrue('rarity' in claim_inventories["cargos"][0])
         self.assertTrue('tier' in claim_inventories["cargos"][0])
 
+    def test_GetPlayerInventories(self):
+        player_inventories = api.get_player_inventories(576460752315736996)
+        self.assertTrue('inventories' in player_inventories)
+        self.assertTrue('entityId' in player_inventories.get('inventories')[0])
+        self.assertTrue('pockets' in player_inventories.get('inventories')[0])
+
+        for inventory in player_inventories.get('inventories'):
+            if inventory.get('entityId') != "360287970233265811": # Massive Personal Chest
+                continue
+            self.assertTrue('contents' in inventory.get('pockets')[0])
+            self.assertTrue('itemId' in inventory.get('pockets')[0].get('contents'))
+            self.assertTrue('itemType' in inventory.get('pockets')[0].get('contents'))
+            self.assertTrue('quantity' in inventory.get('pockets')[0].get('contents'))
+
+        self.assertTrue('items' in player_inventories)
+        self.assertTrue('cargos' in player_inventories)
+
 
 if __name__ == '__main__':
     unittest.main()
