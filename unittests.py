@@ -9,6 +9,7 @@ Created on Tue Dec  2 13:57:22 2025
 import unittest
 import bitjita_api as api
 from helpers import read_url_json
+import item_type
 
 class TestBitjitaAPI(unittest.TestCase):
 
@@ -80,6 +81,10 @@ class TestBitjitaAPI(unittest.TestCase):
         self.assertTrue('tier' in carogosinfo.get('cargos')[0])
         self.assertTrue('rarity' in carogosinfo.get('cargos')[0])
         self.assertTrue('volume' in carogosinfo.get('cargos')[0])
+
+    def test_ItemTypeGetAll(self):
+        self.assertEqual(item_type.get_item_name(1210037), "Beginner's Stone Carvings")
+        self.assertEqual(item_type.get_item_tier(1210037), 1)
 
 if __name__ == '__main__':
     unittest.main()
