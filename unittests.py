@@ -55,7 +55,7 @@ class TestBitjitaAPI(unittest.TestCase):
         self.assertTrue('items' in player_inventories)
         self.assertTrue('cargos' in player_inventories)
 
-    def test_GetItemsInfo(self):
+    def test_APIItemsInfo(self):
         url = api.get_url_items_info()
         itemsinfo = read_url_json(url)
 
@@ -68,7 +68,7 @@ class TestBitjitaAPI(unittest.TestCase):
         self.assertTrue('rarity' in itemsinfo.get('items')[0])
         self.assertTrue('volume' in itemsinfo.get('items')[0])
 
-    def test_GetCarogsInfo(self):
+    def test_APICarogsInfo(self):
         url = api.get_url_cargos_info()
         carogosinfo = read_url_json(url)
 
