@@ -9,7 +9,7 @@ Created on Wed Nov 26 14:38:47 2025
 import bitjita_api as api
 from inventories import inventories_summary
 from config import config
-from item_type import entities
+import item_type
 
 inventory_summary = inventories_summary()
 
@@ -34,9 +34,8 @@ for k,v in claim_inventories.items():
 
 # cargos_info = api.get_cargos_info()
 # items_info = api.get_items_info()
-itemscargos = entities()
 
 scholar_items = []
 for item in config["item_search_strings"]:
-    sublist = itemscargos.search_by_name_and_tag(item[0], item[1])
+    sublist = item_type.search_item_by_name_and_tag(item[0], item[1])
     scholar_items.extend(sublist)
