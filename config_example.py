@@ -33,7 +33,7 @@ config = {
         (360287970322797656, 'Firesand / Metal Solvent Barter')
     ],
     'player_inventory_ids': [(360287970233265811,"Personal Chest Elke")],
-    'cargo_search_strings': [
+    'scholar_cargo_search_strings': [
         "Stone Carving Package",
         "Bark Package",
         "Parchment Package",
@@ -41,7 +41,7 @@ config = {
         "Ink Package",
         "Pigment Package"
         ],
-    'item_search_strings': [
+    'scholar_item_search_strings': [
         # Name search string, tag search string)
         (" Flower", "Flower"),
         (" Pigment", "Pigment"),
