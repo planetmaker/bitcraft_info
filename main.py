@@ -36,7 +36,7 @@ for k,v in claim_inventories.items():
 # items_info = api.get_items_info()
 
 scholar_items = []
-for item in config["item_search_strings"]:
+for item in config["scholar_item_search_strings"]:
     sublist = item_type.search_item_by_name_and_tag(item[0], item[1])
     scholar_items.extend(sublist)
 
@@ -45,3 +45,7 @@ for item in config["item_search_strings"]:
 print("\nLogs for all inventories of {}:".format(config.get('player_ids')[0][1]))
 for k,v in log_summary_elke.items():
     print("{}: {}".format(item_type.get_item_name(k),v))
+
+print("\nAvailable scholar materials:")
+for itemID in scholar_items:
+    print("{}, {}, {}, {}".format(item_type.get_item_tier(itemID), item_type.get_item_tag(itemID), item_type.get_item_name(itemID), inventory_summary.get_amount(itemID)))
