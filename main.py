@@ -39,3 +39,9 @@ scholar_items = []
 for item in config["item_search_strings"]:
     sublist = item_type.search_item_by_name_and_tag(item[0], item[1])
     scholar_items.extend(sublist)
+
+
+(log_detail_elke, log_summary_elke) = api.get_player_logs(config.get('player_ids')[0][0], config.get('claim_ids')[0][0])
+print("\nLogs for all inventories of {}:".format(config.get('player_ids')[0][1]))
+for k,v in log_summary_elke.items():
+    print("{}: {}".format(item_type.get_item_name(k),v))

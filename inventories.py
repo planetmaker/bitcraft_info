@@ -16,7 +16,7 @@ class inventories_summary:
 
     def get_amount(self, itemID: int):
         try:
-            return(self.items["quantity"])
+            return(self.items[itemID].get("quantity"))
         except:
             return(0)
 
