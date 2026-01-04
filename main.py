@@ -47,5 +47,11 @@ for k,v in log_summary_elke.items():
     print("{}: {}".format(item_type.get_item_name(k),v))
 
 print("\nAvailable scholar materials:")
-for itemID in scholar_items:
-    print("{}, {}, {}, {}".format(item_type.get_item_tier(itemID), item_type.get_item_tag(itemID), item_type.get_item_name(itemID), inventory_summary.get_amount(itemID)))
+with open("scholar_mats.txt", 'w') as f:
+    for itemID in scholar_items:
+        print("{}, {}, {}, {}".format(item_type.get_item_tier(itemID), item_type.get_item_tag(itemID), item_type.get_item_name(itemID), inventory_summary.get_amount(itemID)))
+        f.write("{}, {}, {}, {}\n".format(item_type.get_item_tier(itemID), item_type.get_item_tag(itemID), item_type.get_item_name(itemID), inventory_summary.get_amount(itemID)))
+
+
+
+# List all Scholar items in some order
