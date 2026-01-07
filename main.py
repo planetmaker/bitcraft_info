@@ -36,10 +36,14 @@ for k,v in claim_inventories.items():
 # items_info = api.get_items_info()
 
 scholar_items = []
+print("Adding Scholar items:\n")
 for item in config["scholar_item_search_strings"]:
     sublist = item_type.search_item_by_name_and_tag(item[0], item[1])
     scholar_items.extend(sublist)
-
+print("Adding Scholar cargoes:\n")
+for cargo in config["scholar_cargo_search_strings"]:
+    sublist = item_type.search_item_by_name(cargo)
+    scholar_items.extend(sublist)
 
 (log_detail_elke, log_summary_elke) = api.get_player_logs(config.get('player_ids')[0][0], config.get('claim_ids')[0][0])
 print("\nLogs for all inventories of {}:".format(config.get('player_ids')[0][1]))
@@ -47,11 +51,8 @@ for k,v in log_summary_elke.items():
     print("{}: {}".format(item_type.get_item_name(k),v))
 
 print("\nAvailable scholar materials:")
+
 with open("scholar_mats.txt", 'w') as f:
     for itemID in scholar_items:
         print("{}, {}, {}, {}".format(item_type.get_item_tier(itemID), item_type.get_item_tag(itemID), item_type.get_item_name(itemID), inventory_summary.get_amount(itemID)))
         f.write("{}, {}, {}, {}\n".format(item_type.get_item_tier(itemID), item_type.get_item_tag(itemID), item_type.get_item_name(itemID), inventory_summary.get_amount(itemID)))
-
-
-
-# List all Scholar items in some order

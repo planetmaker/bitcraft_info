@@ -80,6 +80,14 @@ def get_item_crafting_requirements(itemID: int, amount=1) -> dict:
 
     return(ret)
 
+def search_item_by_name(name_str: str):
+    ret_list = []
+    for entryID, entry in item_type_info.items():
+        if entry["name"].endswith(name_str):
+            ret_list.append(entryID)
+            print("Adding {} (ID: {})".format(entry["name"], entryID))
+    return(ret_list)
+
 def search_item_by_name_and_tag(name_str: str, tag_str: str):
     ret_list = []
     for entryID, entry in item_type_info.items():
