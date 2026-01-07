@@ -48,7 +48,9 @@ for cargo in config["scholar_cargo_search_strings"]:
         print(sublist)
     scholar_items.extend(sublist)
 
-for (playerID, playerName) in config.get('player_ids'):
+for (playerID, playerName, playerConfig) in config.get('player_ids'):
+    if not playerConfig.get('printLog'):
+        continue
     (log_details_player, log_summary_player) = api.get_player_logs(playerID, playerName)
     print("\nLogs for all inventories of {}:".format(playerName))
     for k,v in log_summary_player.items():
