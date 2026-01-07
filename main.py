@@ -43,12 +43,16 @@ for item in config["scholar_item_search_strings"]:
 print("Adding Scholar cargoes:\n")
 for cargo in config["scholar_cargo_search_strings"]:
     sublist = item_type.search_item_by_name(cargo)
+    if len(sublist) != 10:
+        print("Not found all 10 tiers for cargo: {}".format(cargo))
+        print(sublist)
     scholar_items.extend(sublist)
 
-(log_detail_elke, log_summary_elke) = api.get_player_logs(config.get('player_ids')[0][0], config.get('claim_ids')[0][0])
-print("\nLogs for all inventories of {}:".format(config.get('player_ids')[0][1]))
-for k,v in log_summary_elke.items():
-    print("{}: {}".format(item_type.get_item_name(k),v))
+for (playerID, playerName) in config.get('player_ids'):
+    (log_details_player, log_summary_player) = api.get_player_logs(playerID, playerName)
+    print("\nLogs for all inventories of {}:".format(playerName))
+    for k,v in log_summary_player.items():
+        print("{}: {}".format(item_type.get_item_name(k),v))
 
 print("\nAvailable scholar materials:")
 
