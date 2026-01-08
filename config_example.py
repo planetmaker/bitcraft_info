@@ -8,7 +8,7 @@ Created on Wed Nov 26 14:44:05 2025
 
 config = {
     'claim_ids': [(360287970203435761, 'Bitbucht')],
-    'player_ids': [(576460752315736996, 'Elke')],
+    'player_ids': [(576460752315736996, 'Elke', {'printLog': False, 'useInventory': True})],
     'claim_inventory_ids': [
         (360287970340593566, 'Scholar T1'),
         (360287970340593797, 'Scholar T2'),
