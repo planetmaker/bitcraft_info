@@ -44,18 +44,33 @@ def get_item_all(itemID: int, is_cargo = False):
         print("Item {} not found".format(itemID))
     return ret
 
+def get_cargo_details(itemID: int):
+    if "craftingRecipes" not in cargos_info.get(itemID):
+        # sometimes it might be a cargo as available under https://bitjita.com/api/cargo/{}
+        detail_data = read_url_json("https://bitjita.com/api/cargo/{}".format(itemID))
+        print("Adding details for cargo ID {}".format(itemID))
+        for k,v in detail_data.items():
+            if k == "cargo":
+                continue
+            print("Adding: {}: {}".format(k,v))
+            cargos_info[itemID][k] = v
+    return cargos_info.get(itemID)
+
+
 def get_item_details(itemID: int, is_cargo=False):
-    data = get_info(is_cargo)
-    if "craftingRecipes" not in data.get(itemID):
+    if is_cargo:
+        return get_cargo_details(itemID)
+
+    if "craftingRecipes" not in items_info.get(itemID):
         # sometimes it might be a cargo as available under https://bitjita.com/api/cargo/{}
         detail_data = read_url_json("https://bitjita.com/api/items/{}".format(itemID))
-        print("Adding details for ID {}".format(itemID))
+        print("Adding details for item ID {}".format(itemID))
         for k,v in detail_data.items():
             if k == "item":
                 continue
             print("Adding: {}: {}".format(k,v))
-            data[itemID][k] = v
-    return data.get(itemID)
+            items_info[itemID][k] = v
+    return items_info.get(itemID)
 
 def get_item_recursive_crafting_requirements(start: dict) -> dict:
     detail_data = get_item_details(start["itemId"])
