@@ -59,6 +59,6 @@ for (playerID, playerName, playerConfig) in config.get('player_ids'):
 print("\nAvailable scholar materials:")
 
 with open("scholar_mats.txt", 'w') as f:
-    for itemID in scholar_items:
-        print("{}, {}, {}, {}".format(item_type.get_item_tier(itemID), item_type.get_item_tag(itemID), item_type.get_item_name(itemID), inventory_summary.get_amount(itemID)))
-        f.write("{}, {}, {}, {}\n".format(item_type.get_item_tier(itemID), item_type.get_item_tag(itemID), item_type.get_item_name(itemID), inventory_summary.get_amount(itemID)))
+    for (itemID, is_cargo) in scholar_items:
+        print("{}, {}, {}, {}".format(item_type.get_item_tier(itemID, is_cargo), item_type.get_item_tag(itemID, is_cargo), item_type.get_item_name(itemID, is_cargo), inventory_summary.get_amount(itemID, is_cargo)))
+        f.write("{}, {}, {}, {}\n".format(item_type.get_item_tier(itemID, is_cargo), item_type.get_item_tag(itemID, is_cargo), item_type.get_item_name(itemID, is_cargo), inventory_summary.get_amount(itemID, is_cargo)))

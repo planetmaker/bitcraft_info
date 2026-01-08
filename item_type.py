@@ -11,35 +11,42 @@ from helpers import read_url_json
 
 cargos_info = api.get_cargos_info()
 items_info = api.get_items_info()
-item_type_info = cargos_info | items_info
 
-def get_item_property(what: str, itemID: int):
+def get_info(is_cargo: bool):
+    if is_cargo:
+        return cargos_info
+    return items_info
+
+def get_item_property(what: str, itemID: int, is_cargo = False):
+    data = get_info(is_cargo)
     ret = None
     try:
-        ret = item_type_info.get(itemID).get(what)
+        ret = data.get(itemID).get(what)
     except:
         print("Item {} or property {} not found".format(itemID, what))
     return ret
 
-def get_item_name(itemID: int):
-    return(get_item_property("name", itemID))
+def get_item_name(itemID: int, is_cargo = False):
+    return(get_item_property("name", itemID, is_cargo))
 
-def get_item_tag(itemID: int):
-    return(get_item_property("tag", itemID))
+def get_item_tag(itemID: int, is_cargo = False):
+    return(get_item_property("tag", itemID, is_cargo))
 
-def get_item_tier(itemID: int):
-    return(get_item_property("tier", itemID))
+def get_item_tier(itemID: int, is_cargo = False):
+    return(get_item_property("tier", itemID, is_cargo))
 
-def get_item_all(itemID: int):
+def get_item_all(itemID: int, is_cargo = False):
+    data = get_info(is_cargo)
     ret = None
     try:
-        ret = item_type_info.get(itemID)
+        ret = data.get(itemID)
     except:
         print("Item {} not found".format(itemID))
     return ret
 
-def get_item_details(itemID: int):
-    if "craftingRecipes" not in item_type_info.get(itemID):
+def get_item_details(itemID: int, is_cargo=False):
+    data = get_info(is_cargo)
+    if "craftingRecipes" not in data.get(itemID):
         # sometimes it might be a cargo as available under https://bitjita.com/api/cargo/{}
         detail_data = read_url_json("https://bitjita.com/api/items/{}".format(itemID))
         print("Adding details for ID {}".format(itemID))
@@ -47,8 +54,8 @@ def get_item_details(itemID: int):
             if k == "item":
                 continue
             print("Adding: {}: {}".format(k,v))
-            item_type_info[itemID][k] = v
-    return item_type_info.get(itemID)
+            data[itemID][k] = v
+    return data.get(itemID)
 
 def get_item_recursive_crafting_requirements(start: dict) -> dict:
     detail_data = get_item_details(start["itemId"])
@@ -82,18 +89,26 @@ def get_item_crafting_requirements(itemID: int, amount=1) -> dict:
 
 def search_item_by_name(name_str: str):
     ret_list = []
-    for entryID, entry in item_type_info.items():
+    for entryID, entry in items_info.items():
         if entry["name"].endswith(name_str):
-            ret_list.append(entryID)
-            print("Adding {} (ID: {})".format(entry["name"], entryID))
+            ret_list.append((entryID, False))
+            print("Adding item {} (ID: {})".format(entry["name"], entryID))
+    for entryID, entry in cargos_info.items():
+        if entry["name"].endswith(name_str):
+            ret_list.append((entryID, True))
+            print("Adding cargo {} (ID: {})".format(entry["name"], entryID))
     return(ret_list)
 
 def search_item_by_name_and_tag(name_str: str, tag_str: str):
     ret_list = []
-    for entryID, entry in item_type_info.items():
+    for entryID, entry in items_info.items():
         if entry["name"].endswith(name_str) and tag_str in entry["tag"]:
-            ret_list.append(entryID)
-            print("Adding {} (ID: {})".format(entry["name"], entryID))
+            ret_list.append((entryID, False))
+            print("Adding item {} (ID: {})".format(entry["name"], entryID))
+    for entryID, entry in cargos_info.items():
+        if entry["name"].endswith(name_str) and tag_str in entry["tag"]:
+            ret_list.append((entryID, True))
+            print("Adding cargo {} (ID: {})".format(entry["name"], entryID))
     return(ret_list)
 
 
