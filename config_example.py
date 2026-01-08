@@ -24,13 +24,19 @@ config = {
         (360287970255774404, 'Animal Hair Barter'),
         (360287970242108574, 'Citric Berries Barter'),
         (360287970215829241, 'Crop Oil Barter'),
+        (360287970340532008, 'Braxite Barter'),
 
         (360287970282421921, 'Fish Oil Barter'),
         (360287970248175522, 'Bark / Flower Barter'),
 
         (360287970222119858, 'Wood Polish Barter'),
         (360287970340588135, 'Leather Treatment Barter'),
-        (360287970322797656, 'Firesand / Metal Solvent Barter')
+        (360287970322797656, 'Firesand / Metal Solvent Barter'),
+
+        (360287970281141206, "Flaschen T1"),
+        (360287970281141081, "Flaschen T2"),
+        (360287970343419256, "Flaschen T3 T4"),
+        (360287970343418110, "Flaschen T5 T6 T7")
     ],
     'player_inventory_ids': [(360287970233265811,"Personal Chest Elke")],
     'scholar_cargo_search_strings': [
@@ -39,7 +45,8 @@ config = {
         "Parchment Package",
         "Flower Package",
         "Ink Package",
-        "Pigment Package"
+        "Pigment Package",
+        "Vial Package"
         ],
     'scholar_item_search_strings': [
         # Name search string, tag search string)
