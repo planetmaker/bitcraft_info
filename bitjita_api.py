@@ -27,6 +27,11 @@ def get_url_items_info(search_str = None):
         url.join(e for e in search_str if e.isalnum())
     return url
 
+def get_url_player_claim_crafts(playerID: int, claimID: int):
+    return("https://bitjita.com/api/crafts?claimEntityId={}&playerEntityId={}".format(claimID, playerID))
+    # url = "https://bitjita.com/api/crafts?claimEntityId={}&playerEntityId={}".format(claimID, playerID)
+    # return url
+
 def get_url_cargos_info(search_str = None):
     url = "https://bitjita.com/api/cargo"
     if search_str is not None:
@@ -40,6 +45,10 @@ def get_claim_inventories(claimID: int):
 
 def get_player_inventories(playerID: int):
     url = get_url_player_inventories(playerID)
+    return(read_url_json(url))
+
+def get_player_claim_crafts(playerID: int, claimID: int):
+    url = get_url_player_claim_crafts(playerID, claimID)
     return(read_url_json(url))
 
 def get_claim_aggregate_inventories(claimInventories: dict, buildingIDs = []):
@@ -71,7 +80,7 @@ def get_claim_aggregate_inventories(claimInventories: dict, buildingIDs = []):
             amount = content["quantity"]
             itemType = content["item_type"]
             if itemID not in items:
-                print("Adding new item {} for building {}".format(itemID, entityID))
+                print("Adding new item {} for building {}: {}x".format(itemID, entityID, amount))
                 items[itemID] = {
                     "quantity": amount,
                     "item_type": itemType
