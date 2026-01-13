@@ -131,21 +131,23 @@ def get_item_crafting_info(itemID: int, total_quantity = 1, is_cargo = False):
     info = get_item_details(itemID, is_cargo)
     for recipe in info.get('craftingRecipes'):
         name = recipe.get('name')
-        if name != "Craft {0}" and name != "Crush {1} into {0}":
+        # if name != "Craft {0}" and name != "Crush {1} into {0}" and name != "Mix {0}":
+        #     continue
+        if name == "Unpack {1}" or name == "Package {1} into {0}" or name == "Grow {0}" or name == "Fill {0}":
             continue
+        if name == "Split {1} into {0}":
+            continue
+        elif name != "Craft {0}" and name != "Crush {1} into {0}" and name != "Mix {0}":
+            print("Processing via: {}".format(name))
         for item in recipe.get('consumedItemStacks'):
-            ingredients.append({
-                'itemID': item.get('item_id'),
-                'name': get_item_name(item.get('item_id'), api.itemtype_to_isCargo(item.get('item_type'))),
-                'quantity': item.get('quantity'),
-                'total_quantity': item.get('quantity') * total_quantity,
-                'item_type': item.get('item_type'),
-                'ingredients': get_item_crafting_info(
+            ingredients.append(
+                get_item_crafting_info(
                     item.get('item_id'),
                     total_quantity=item.get('quantity') * total_quantity,
                     is_cargo=api.itemtype_to_isCargo(item.get('item_type'))
-                    )
-                })
+                )
+            )
+        break # TODO: Only consider the first possible repice. If not... the tech tree breaks and assumes ALL the ingredients being required
     ret = {
         'itemID': itemID,
         'item_type': api.isCargo_to_itemtype(is_cargo),
@@ -155,3 +157,12 @@ def get_item_crafting_info(itemID: int, total_quantity = 1, is_cargo = False):
         'ingredients': ingredients
         }
     return(ret)
+
+def print_crafting_tree(tree: list, indentation = 0):
+    spacestrg = ".............................."
+    for entry in tree:
+        try:
+            print("{}{}: {}".format(spacestrg[0:indentation],entry.get('name'), entry.get('total_quantity')))
+            print_crafting_tree(entry.get('ingredients'), indentation + 1)
+        except:
+            print("Couldn't pring entry type {}: {}".format(type(entry),entry))
