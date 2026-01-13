@@ -126,4 +126,32 @@ def search_item_by_name_and_tag(name_str: str, tag_str: str):
             print("Adding cargo {} (ID: {})".format(entry["name"], entryID))
     return(ret_list)
 
-
+def get_item_crafting_info(itemID: int, total_quantity = 1, is_cargo = False):
+    ingredients = []
+    info = get_item_details(itemID, is_cargo)
+    for recipe in info.get('craftingRecipes'):
+        name = recipe.get('name')
+        if name != "Craft {0}" and name != "Crush {1} into {0}":
+            continue
+        for item in recipe.get('consumedItemStacks'):
+            ingredients.append({
+                'itemID': item.get('item_id'),
+                'name': get_item_name(item.get('item_id'), api.itemtype_to_isCargo(item.get('item_type'))),
+                'quantity': item.get('quantity'),
+                'total_quantity': item.get('quantity') * total_quantity,
+                'item_type': item.get('item_type'),
+                'ingredients': get_item_crafting_info(
+                    item.get('item_id'),
+                    total_quantity=item.get('quantity') * total_quantity,
+                    is_cargo=api.itemtype_to_isCargo(item.get('item_type'))
+                    )
+                })
+    ret = {
+        'itemID': itemID,
+        'item_type': api.isCargo_to_itemtype(is_cargo),
+        'name': get_item_name(itemID, is_cargo),
+        'quantity': 1,
+        'total_quantity': total_quantity,
+        'ingredients': ingredients
+        }
+    return(ret)
