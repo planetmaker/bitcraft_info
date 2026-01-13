@@ -166,3 +166,17 @@ def print_crafting_tree(tree: list, indentation = 0):
             print_crafting_tree(entry.get('ingredients'), indentation + 1)
         except:
             print("Couldn't pring entry type {}: {}".format(type(entry),entry))
+
+def crafting_tree_to_dict(tree: dict, flat_dict = {}):
+    item_id = tree.get('itemID')
+    if item_id not in flat_dict:
+        flat_dict[item_id] = {'total_quantity': 0, 'name': tree.get('name')}
+    quantity = flat_dict[item_id].get('total_quantity') + tree.get('total_quantity')
+    flat_dict[item_id]['total_quantity'] = quantity
+    print("{} ({}) uses : {}".format(tree.get('name'), item_id, tree.get('ingredients')))
+    for entry in tree.get('ingredients'):
+        if entry is None:
+            continue
+        flat_dict =  crafting_tree_to_dict(entry, flat_dict)
+        print("Entry: {} --> {}".format(entry, flat_dict))
+    return(flat_dict)
