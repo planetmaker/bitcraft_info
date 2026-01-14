@@ -126,4 +126,57 @@ def search_item_by_name_and_tag(name_str: str, tag_str: str):
             print("Adding cargo {} (ID: {})".format(entry["name"], entryID))
     return(ret_list)
 
+def get_item_crafting_info(itemID: int, total_quantity = 1, is_cargo = False):
+    ingredients = []
+    info = get_item_details(itemID, is_cargo)
+    for recipe in info.get('craftingRecipes'):
+        name = recipe.get('name')
+        # if name != "Craft {0}" and name != "Crush {1} into {0}" and name != "Mix {0}":
+        #     continue
+        if name == "Unpack {1}" or name == "Package {1} into {0}" or name == "Grow {0}" or name == "Fill {0}":
+            continue
+        if name == "Split {1} into {0}":
+            continue
+        elif name != "Craft {0}" and name != "Crush {1} into {0}" and name != "Mix {0}":
+            print("Processing via: {}".format(name))
+        for item in recipe.get('consumedItemStacks'):
+            ingredients.append(
+                get_item_crafting_info(
+                    item.get('item_id'),
+                    total_quantity=item.get('quantity') * total_quantity,
+                    is_cargo=api.itemtype_to_isCargo(item.get('item_type'))
+                )
+            )
+        break # TODO: Only consider the first possible repice. If not... the tech tree breaks and assumes ALL the ingredients being required
+    ret = {
+        'itemID': itemID,
+        'item_type': api.isCargo_to_itemtype(is_cargo),
+        'name': get_item_name(itemID, is_cargo),
+        'quantity': 1,
+        'total_quantity': total_quantity,
+        'ingredients': ingredients
+        }
+    return(ret)
 
+def print_crafting_tree(tree: list, indentation = 0):
+    spacestrg = ".............................."
+    for entry in tree:
+        try:
+            print("{}{}: {}".format(spacestrg[0:indentation],entry.get('name'), entry.get('total_quantity')))
+            print_crafting_tree(entry.get('ingredients'), indentation + 1)
+        except:
+            print("Couldn't pring entry type {}: {}".format(type(entry),entry))
+
+def crafting_tree_to_dict(tree: dict, flat_dict = {}):
+    item_id = tree.get('itemID')
+    if item_id not in flat_dict:
+        flat_dict[item_id] = {'total_quantity': 0, 'name': tree.get('name')}
+    quantity = flat_dict[item_id].get('total_quantity') + tree.get('total_quantity')
+    flat_dict[item_id]['total_quantity'] = quantity
+    print("{} ({}) uses : {}".format(tree.get('name'), item_id, tree.get('ingredients')))
+    for entry in tree.get('ingredients'):
+        if entry is None:
+            continue
+        flat_dict =  crafting_tree_to_dict(entry, flat_dict)
+        print("Entry: {} --> {}".format(entry, flat_dict))
+    return(flat_dict)

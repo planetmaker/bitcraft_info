@@ -153,6 +153,16 @@ def get_player_itemtype(itemtypeID):
 
     return('unknown')
 
+def isCargo_to_itemtype(is_cargo):
+    if is_cargo:
+        return('cargo')
+    return('item')
+
+def itemtype_to_isCargo(itemtype):
+    if itemtype == 'item':
+        return(False)
+    return(True)
+
 def get_player_aggregate_inventories(playerInventories: dict, inventoryIDs = []):
     """
     Format of Bitjita API: List of dicts:
