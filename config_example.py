@@ -4,9 +4,12 @@
 Created on Wed Nov 26 14:44:05 2025
 
 @author: planetmaker
+
+Create a config.py tailored for your needs based on this example
 """
 
 config = {
+    'filename_material_list': 'scholar_mats.txt',
     'claim_ids': [(360287970203435761, 'Bitbucht')],
     'player_ids': [(576460752315736996, 'Elke', {'printLog': False, 'useInventory': True})],
     'claim_inventory_ids': [
