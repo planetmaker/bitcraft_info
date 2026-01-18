@@ -6,6 +6,8 @@ Created on Wed Nov 26 14:38:47 2025
 @author: planetmaker
 """
 
+import datetime
+
 import bitjita_api as api
 from inventories import inventories_summary
 from config import config
@@ -59,6 +61,7 @@ for (playerID, playerName, playerConfig) in config.get('player_ids'):
 print("\nAvailable scholar materials:")
 
 with open("scholar_mats.txt", 'w') as f:
+    f.write("{}, {}, {}, {}\n".format(0, "Stand:", datetime.datetime.now().strftime('"Update: %d.%m.%Y %H:%Mh"'), 0))
     for (itemID, is_cargo) in scholar_items:
         print("{}, {}, {}, {}".format(item_type.get_item_tier(itemID, is_cargo), item_type.get_item_tag(itemID, is_cargo), item_type.get_item_name(itemID, is_cargo), inventory_summary.get_amount(itemID, is_cargo)))
         f.write("{}, {}, {}, {}\n".format(item_type.get_item_tier(itemID, is_cargo), item_type.get_item_tag(itemID, is_cargo), item_type.get_item_name(itemID, is_cargo), inventory_summary.get_amount(itemID, is_cargo)))
