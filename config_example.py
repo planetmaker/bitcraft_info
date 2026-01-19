@@ -42,7 +42,7 @@ config = {
         (360287970343418110, "Flaschen T5 T6 T7")
     ],
     'player_inventory_ids': [(360287970233265811,"Personal Chest Elke")],
-    'scholar_cargo_search_strings': [
+    'crafting_cargo_search_strings': [
         "Stone Carving Package",
         "Bark Package",
         "Parchment Package",
@@ -51,7 +51,7 @@ config = {
         "Pigment Package",
         "Vial Package"
         ],
-    'scholar_item_search_strings': [
+    'crafting_item_search_strings': [
         # Name search string, tag search string)
         (" Flower", "Flower"),
         (" Pigment", "Pigment"),

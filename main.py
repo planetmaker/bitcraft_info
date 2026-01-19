@@ -38,12 +38,12 @@ for k,v in claim_inventories.items():
 # items_info = api.get_items_info()
 
 scholar_items = []
-print("Adding Scholar items:\n")
-for item in config["scholar_item_search_strings"]:
+print("Adding Crafting items:\n")
+for item in config["crafting_item_search_strings"]:
     sublist = item_type.search_item_by_name_and_tag(item[0], item[1])
     scholar_items.extend(sublist)
-print("Adding Scholar cargoes:\n")
-for cargo in config["scholar_cargo_search_strings"]:
+print("Adding Crafting cargoes:\n")
+for cargo in config["crafting_cargo_search_strings"]:
     sublist = item_type.search_item_by_name(cargo)
     if len(sublist) != 10:
         print("Not found all 10 tiers for cargo: {}".format(cargo))
@@ -58,7 +58,7 @@ for (playerID, playerName, playerConfig) in config.get('player_ids'):
     for k,v in log_summary_player.items():
         print("{}: {}".format(item_type.get_item_name(k),v))
 
-print("\nAvailable scholar materials:")
+print("\nAvailable Crafting materials:")
 
 with open(config.get('filename_material_list'), 'w') as f:
     f.write("{}, {}, {}, {}\n".format(0, "Stand:", datetime.datetime.now().strftime('"Update: %d.%m.%Y %H:%Mh"'), 0))
