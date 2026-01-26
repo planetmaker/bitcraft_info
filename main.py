@@ -34,6 +34,19 @@ for k,v in player_inventories.items():
 for k,v in claim_inventories.items():
     inventory_summary.add_item(k,v,source='Claim')
 
+print("Adding crafts:")
+for (playerID, playerName, playerConfig) in config.get('player_ids'):
+    print("Crafts for {} (ID {}) with config {}".format(playerName, playerID, playerConfig))
+    if not playerConfig.get('useCrafts'):
+        continue
+    player_crafts = api.get_player_claim_crafts(playerID, config.get('claim_ids')[0][0])
+    for craft in player_crafts.get('craftResults'):
+        item_id = int(craft.get('craftedItem')[0].get('item_id'))
+        quantity = craft.get('craftCount')
+        print("Adding craft: {}x for {} (itemID {})".format(quantity, item_type.get_item_name(item_id), item_id))
+        inventory_summary.add_item(item_id, {'quantity': quantity}, source='Craft')
+
+
 # cargos_info = api.get_cargos_info()
 # items_info = api.get_items_info()
 
@@ -57,6 +70,7 @@ for (playerID, playerName, playerConfig) in config.get('player_ids'):
     print("\nLogs for all inventories of {}:".format(playerName))
     for k,v in log_summary_player.items():
         print("{}: {}".format(item_type.get_item_name(k),v))
+
 
 print("\nAvailable Crafting materials:")
 

@@ -4,14 +4,12 @@
 Created on Wed Nov 26 14:44:05 2025
 
 @author: planetmaker
-
-Create a config.py tailored for your needs based on this example
 """
 
 config = {
     'filename_material_list': 'scholar_mats.txt',
     'claim_ids': [(360287970203435761, 'Bitbucht')],
-    'player_ids': [(576460752315736996, 'Elke', {'printLog': False, 'useInventory': True})],
+    'player_ids': [(576460752315736996, 'Elke', {'printLog': False, 'useInventory': True, 'useCrafts': True})],
     'claim_inventory_ids': [
         (360287970340593566, 'Scholar T1'),
         (360287970340593797, 'Scholar T2'),
@@ -21,7 +19,7 @@ config = {
         (360287970286553515, 'Scholar T6,T7,T8'),
         (360287970377256946, 'Scholar Lager (Stockpile)'),
         (360287970377265773, 'Blumenkiste'),
-        (360287970310087199, 'zum Angrabbeln'),
+#        (360287970310087199, 'zum Angrabbeln'),
 
         (360287970215829656, 'Crushed Shells Barter'),
         (360287970255774404, 'Animal Hair Barter'),
@@ -49,7 +47,7 @@ config = {
         "Flower Package",
         "Ink Package",
         "Pigment Package",
-        "Vial Package"
+        "Glass Vial Package"
         ],
     'crafting_item_search_strings': [
         # Name search string, tag search string)
