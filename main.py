@@ -75,7 +75,7 @@ for (playerID, playerName, playerConfig) in config.get('player_ids'):
 print("\nAvailable Crafting materials:")
 
 with open(config.get('filename_material_list'), 'w') as f:
-    f.write("{}, {}, {}, {}\n".format(0, "Stand:", datetime.datetime.now().strftime('"Update: %d.%m.%Y %H:%Mh"'), 0))
+    f.write("{}, {}, {}, {}, {}\n".format(0, "Stand:", datetime.datetime.now().strftime('"Update: %d.%m.%Y %H:%Mh"'), 0, 0))
     for (itemID, is_cargo) in scholar_items:
-        print("{}, {}, {}, {}".format(item_type.get_item_tier(itemID, is_cargo), item_type.get_item_tag(itemID, is_cargo), item_type.get_item_name(itemID, is_cargo), inventory_summary.get_amount(itemID, is_cargo)))
-        f.write("{}, {}, {}, {}\n".format(item_type.get_item_tier(itemID, is_cargo), item_type.get_item_tag(itemID, is_cargo), item_type.get_item_name(itemID, is_cargo), inventory_summary.get_amount(itemID, is_cargo)))
+        print("{}, {}, {}, {}, {}".format(item_type.get_item_tier(itemID, is_cargo), item_type.get_item_tag(itemID, is_cargo), item_type.get_item_name(itemID, is_cargo), inventory_summary.get_amount(itemID, is_cargo), inventory_summary.get_crafting_amount(itemID, is_cargo)))
+        f.write("{}, {}, {}, {}, {}\n".format(item_type.get_item_tier(itemID, is_cargo), item_type.get_item_tag(itemID, is_cargo), item_type.get_item_name(itemID, is_cargo), inventory_summary.get_amount(itemID, is_cargo), inventory_summary.get_crafting_amount(itemID, is_cargo)))
