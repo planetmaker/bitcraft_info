@@ -8,38 +8,18 @@ Created on Wed Nov 26 14:44:05 2025
 
 config = {
     'filename_material_list': 'scholar_mats.txt',
-    'claim_ids': [(360287970203435761, 'Bitbucht')],
-    'player_ids': [(576460752315736996, 'Elke', {'printLog': False, 'useInventory': True, 'useCrafts': True})],
+    'claim_ids': [(1297036692700056569, 'Bitbucht')],
+    'player_ids': [(576460752317375674, 'Elke', {'printLog': False, 'useInventory': True, 'useApartement': True, 'useCrafts': True})],
     'claim_inventory_ids': [
-        (360287970340593566, 'Scholar T1'),
-        (360287970340593797, 'Scholar T2'),
-        (360287970340594433, 'Scholar T3'),
-        (360287970340596905, 'Scholar T4'),
-        (360287970340595177, 'Scholar T5'),
-        (360287970286553515, 'Scholar T6,T7,T8'),
-        (360287970377256946, 'Scholar Lager (Stockpile)'),
-        (360287970377265773, 'Blumenkiste'),
-#        (360287970310087199, 'zum Angrabbeln'),
-
-        (360287970215829656, 'Crushed Shells Barter'),
-        (360287970255774404, 'Animal Hair Barter'),
-        (360287970242108574, 'Citric Berries Barter'),
-        (360287970215829241, 'Crop Oil Barter'),
-        (360287970340532008, 'Braxite Barter'),
-
-        (360287970282421921, 'Fish Oil Barter'),
-        (360287970248175522, 'Bark / Flower Barter'),
-
-        (360287970222119858, 'Wood Polish Barter'),
-        (360287970340588135, 'Leather Treatment Barter'),
-        (360287970322797656, 'Firesand / Metal Solvent Barter'),
-
-        (360287970281141206, "Flaschen T1"),
-        (360287970281141081, "Flaschen T2"),
-        (360287970343419256, "Flaschen T3 T4"),
-        (360287970343418110, "Flaschen T5 T6 T7")
+        (1297036692700187715, "Brunnen"),
+        (1297036692700664485, "Hexite & Rares"),
+        (1297036692700664398, "Rares"),
+        (1297036692700376318, "Scholar"),
+        (1297036692702175561, "Scholar Stadtupgrade"),
+        (1297036692701184903, "Rares")
     ],
     'player_inventory_ids': [(360287970233265811,"Personal Chest Elke")],
+    'player_housing_ids': [(576460752317375674, 1297036692700489077, "Apartement Elke")],
     'crafting_cargo_search_strings': [
         "Stone Carving Package",
         "Bark Package",
