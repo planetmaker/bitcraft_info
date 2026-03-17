@@ -20,7 +20,7 @@ bitjita_player_inventories = api.get_player_inventories(config['player_ids'][0][
 bitjita_claim_inventories  = api.get_claim_inventories(config['claim_ids'][0][0])
 
 claim_inventory_ids = []
-for inventory_id in config['claim_inventory_ids']:
+for inventory_id in config['claim_inventory_ids_whitelist']:
     claim_inventory_ids.append(inventory_id[0])
 player_inventory_ids = []
 for inventory_id in config['player_inventory_ids']:
