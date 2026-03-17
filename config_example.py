@@ -9,15 +9,27 @@ Created on Wed Nov 26 14:44:05 2025
 config = {
     'filename_material_list': 'scholar_mats.txt',
     'claim_ids': [(1297036692700056569, 'Bitbucht')],
-    'player_ids': [(576460752317375674, 'Elke', {'printLog': False, 'useInventory': True, 'useApartement': True, 'useCrafts': True})],
-    'claim_inventory_ids': [
-        (1297036692700187715, "Brunnen"),
-        (1297036692700664485, "Hexite & Rares"),
-        (1297036692700664398, "Rares"),
-        (1297036692700376318, "Scholar"),
+    'player_ids': [(576460752317375674, 'Elke', {'printLog': False, 'useInventory': True, 'useApartement': True, 'useCrafts': True}),
+                   (1297036692699953494,'Tescha', {'printLog': False, 'useInventory': True, 'useApartement': True, 'useCrafts': True}),
+                   (648518346354070691, 'Akhara', {'printLog': False, 'useInventory': True, 'useApartement': True, 'useCrafts': True})],
+    'claim_inventory_ids_whitelist': [
+        (1297036692700210919, "Sap & Kram"),
+        (1297036692700373563, "Fische"),
+        (1297036692700376318, "Scholar Potions"),
         (1297036692702175561, "Scholar Stadtupgrade"),
-        (1297036692701184903, "Rares")
+        (1297036692711767044, "Scholar Schreibkram"),
+        (1297036692701184903, "Citric Braxite Fischöl"),
+        (1297036692714149937, "Cropoil Resin"),
+        (1297036692714152594, "Straw and Animal Hair"),
+        (1297036692714159073, "Gypsite Crushed Shells"),
+        (1297036692714707754, "Holz"),
+        (1297036692714046611, "Holzlager")
     ],
+    'claim_inventory_ids_blacklist': [],
+    'item_type_whitelist': [],
+    'item_type_blacklist': [],
+    'cargo_type_whitelist': [],
+    'cargo_type_blacklist': [],
     'player_inventory_ids': [(360287970233265811,"Personal Chest Elke")],
     'player_housing_ids': [(576460752317375674, 1297036692700489077, "Apartement Elke")],
     'crafting_cargo_search_strings': [
