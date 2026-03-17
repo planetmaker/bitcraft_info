@@ -48,7 +48,7 @@ def get_cargo_details(itemID: int):
     if "craftingRecipes" not in cargos_info.get(itemID):
         # sometimes it might be a cargo as available under https://bitjita.com/api/cargo/{}
         detail_data = read_url_json("https://bitjita.com/api/cargo/{}".format(itemID))
-        print("Adding details for cargo ID {}".format(itemID))
+        print("Adding details for cargo ID {} ({})".format(itemID, get_item_name(itemID, True)))
         for k,v in detail_data.items():
             if k == "cargo":
                 continue
@@ -64,7 +64,7 @@ def get_item_details(itemID: int, is_cargo=False):
     if "craftingRecipes" not in items_info.get(itemID):
         # sometimes it might be a cargo as available under https://bitjita.com/api/cargo/{}
         detail_data = read_url_json("https://bitjita.com/api/items/{}".format(itemID))
-        print("Adding details for item ID {}".format(itemID))
+        print("Adding details for item ID {} ({})".format(itemID, get_item_name(itemID)))
         for k,v in detail_data.items():
             if k == "item":
                 continue
@@ -180,3 +180,6 @@ def crafting_tree_to_dict(tree: dict, flat_dict = {}):
         flat_dict =  crafting_tree_to_dict(entry, flat_dict)
         print("Entry: {} --> {}".format(entry, flat_dict))
     return(flat_dict)
+
+def print_crafing_dict(flattened_dict: dict, ignored_items: list):
+    pass
