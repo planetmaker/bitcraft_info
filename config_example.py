@@ -15,14 +15,14 @@ config = {
     'claim_inventory_ids_whitelist': [
         (1297036692700210919, "Sap & Kram"),
         (1297036692700373563, "Fische"),
-        (1297036692700376318, "Scholar Potions"),
-        (1297036692702175561, "Scholar Stadtupgrade"),
-        (1297036692711767044, "Scholar Schreibkram"),
+        (1297036692724185147, "Scholar Potions"),
+        (1297036692724185077, "Scholar Stadtupgrade"),
+        (1297036692724185114, "Scholar Schreibkram"),
         (1297036692701184903, "Citric Braxite Fischöl"),
         (1297036692714149937, "Cropoil Resin"),
         (1297036692714152594, "Straw and Animal Hair"),
         (1297036692714159073, "Gypsite Crushed Shells"),
-        (1297036692714707754, "Holz"),
+        (1297036692724179871, "Holz"),
         (1297036692714046611, "Holzlager")
     ],
     'claim_inventory_ids_blacklist': [],
