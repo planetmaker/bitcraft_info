@@ -14,10 +14,10 @@ def get_url_claim_inventories(claimID: int):
 def get_url_player_inventories(playerID: int):
     return("https://bitjita.com/api/players/{}/inventories".format(playerID))
 
-def get_url_player_housing(playerID: int):
+def get_url_player_house(playerID: int):
     return("https://bitjita.com/api/players/{}/housing".format(playerID))
 
-def get_url_player_housing_inventories(playerID: int, housingID: int):
+def get_url_player_house_inventories(playerID: int, housingID: int):
     return("https://bitjita.com/api/players/{}/housing/{}".format(playerID, housingID))
 
 def get_url_storage_logs(buildingID: int):
@@ -168,6 +168,41 @@ def itemtype_to_isCargo(itemtype):
     if itemtype == 'item':
         return(False)
     return(True)
+
+def get_player_house_id(player_id: int):
+    url = get_url_player_house(player_id)
+    data = read_url_json(url)
+    print("Data: ",data)
+    return(int(data[0]['buildingEntityId']))
+
+def add_to_inventory_dict(inventory_dict: dict, contents: dict):
+    print("Contents: ",contents)
+    print("Inventory dict: ", inventory_dict)
+    itemID = contents["item_id"]
+    amount = contents["quantity"]
+    itemType = contents["item_type"]
+    if itemID not in inventory_dict:
+        print("Adding new item {} for housing".format(itemID))
+        inventory_dict[itemID] = {
+            "quantity": amount,
+            "item_type": itemType,
+        }
+    else:
+        inventory_dict[itemID]["quantity"] += amount
+        # itemType is ignored as it *should* be identical
+
+    return(inventory_dict)
+
+def get_player_aggregate_house_inventories(player_id: int, items: dict):
+    url = get_url_player_house_inventories(player_id, get_player_house_id(player_id))
+    house_inventories = read_url_json(url)['inventories']
+
+    for storage in house_inventories:
+        for inventory in storage['inventory']:
+            items = add_to_inventory_dict(items, inventory['contents'])
+
+    return(items)
+
 
 def get_player_aggregate_inventories(playerInventories: dict, inventoryIDs = []):
     """
