@@ -24,6 +24,7 @@ class inventories_summary:
         except:
             return(0)
 
+
     def get_crafting_amount(self, itemID: int, is_cargo = False):
         return(0)
 
