@@ -46,6 +46,21 @@ for (playerID, playerName, playerConfig) in config.get('player_ids'):
         print("Adding craft: {}x for {} (itemID {})".format(quantity, item_type.get_item_name(item_id), item_id))
         inventory_summary.add_item(item_id, {'quantity': quantity}, source='Craft')
 
+print("Adding housing inventories:")
+player_housing_inventory = dict()
+for (playerID, playerName, playerConfig) in config.get('player_ids'):
+    print("Housing for {} (ID {}) with config {}".format(playerName, playerID, playerConfig))
+    if not playerConfig.get('useApartement'):
+        continue
+    player_housing_inventory = api.get_player_aggregate_house_inventories(playerID, player_housing_inventory)
+    for item_id, data in player_housing_inventory.items():
+        quantity = data.get('quantity')
+        is_cargo = api.itemtype_to_isCargo(data.get('item_type'))
+        print("Adding housing inventory: {}x for {} (itemID {})".format(quantity, item_type.get_item_name(item_id, is_cargo), item_id))
+
+for k,v in player_housing_inventory.items():
+   inventory_summary.add_item(k, v, source='Housing')
+
 
 # cargos_info = api.get_cargos_info()
 # items_info = api.get_items_info()
