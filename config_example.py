@@ -13,7 +13,8 @@ config = {
                    (1297036692699953494,'Tescha', {'printLog': False, 'useInventory': True, 'useApartement': True, 'useCrafts': True}),
                    (648518346354070691, 'Akhara', {'printLog': False, 'useInventory': True, 'useApartement': True, 'useCrafts': True}),
                    (1369094286737069042,'DrZahnlos', {'printLog': False, 'useInventory': False, 'useApartement': False, 'useCrafts': False}),
-                   ],
+                   (576460752317375006,'Till', {'printLog': False, 'useInventory': False, 'useApartement': False, 'useCrafts': True}),
+                   (1224979098661456940,'Tzuyu', {'printLog': False, 'useInventory': False, 'useApartement': False, 'useCrafts': True}),                   ],
     'claim_inventory_ids_whitelist': [
         (1297036692700210919, "Sap & Kram"),
         (1297036692700645816, "Fische Stockpile"),
@@ -43,7 +44,8 @@ config = {
         "Flower Package",
         "Ink Package",
         "Pigment Package",
-        "Glass Vial Package"
+        "Glass Vial Package",
+        "Pebbles Package"
         ],
     'crafting_item_search_strings': [
         # Name search string, tag search string)
@@ -65,6 +67,7 @@ config = {
         (" Citric Berry", "Citric Berry"),
         (" Resin", "Resin"),
         (" Braxite", "Pebbles"),
+        (" Pebbles", "Pebbles"),
         (" Shells", "Crushed Shells"),
         (" Gypsite", "Gypsite"),
         (" Crop Oil", "Crop Oil"),
