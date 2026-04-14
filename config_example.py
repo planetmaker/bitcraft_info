@@ -76,6 +76,12 @@ config = {
 #        ("Water Bucket", "Water"),
 #        ("Pitch", "Pitch"),
 
+        (" Cloth", "Refined Cloth"),
+        (" Plank", "Refined Plank"),
+        (" Ingot", "Refined Ingot"),
+        (" Leather", "Refined Leather"),
+        (" Brick", "Refined Brick"),
+
         (" Cloth Research", "Cloth Research"),
         (" Leather Research", "Leather Research"),
         (" Metal Research", "Metal Research"),
