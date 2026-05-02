@@ -8,13 +8,15 @@ Created on Wed Nov 26 14:44:05 2025
 
 config = {
     'filename_material_list': 'scholar_mats.txt',
+    'days_backlog': 1,
+    'DeployablesStrings': ("Personal Cache"),
     'claim_ids': [(1297036692700056569, 'Bitbucht')],
-    'player_ids': [(576460752317375674, 'Elke', {'printLog': False, 'useInventory': True, 'useApartement': True, 'useCrafts': True}),
-                   (1297036692699953494,'Tescha', {'printLog': False, 'useInventory': True, 'useApartement': True, 'useCrafts': True}),
-                   (648518346354070691, 'Akhara', {'printLog': False, 'useInventory': True, 'useApartement': True, 'useCrafts': True}),
-                   (1369094286737069042,'DrZahnlos', {'printLog': False, 'useInventory': False, 'useApartement': False, 'useCrafts': False}),
-                   (576460752317375006,'Till', {'printLog': False, 'useInventory': False, 'useApartement': False, 'useCrafts': True}),
-                   (1224979098661456940,'Tzuyu', {'printLog': False, 'useInventory': False, 'useApartement': False, 'useCrafts': True}),                   ],
+    'player_ids': [(576460752317375674, 'Elke',      {'printLog': True,  'useDeployables': True,  'useApartement': True,  'useCrafts': True}),
+                   (1297036692699953494,'Tescha',    {'printLog': False, 'useDeployables': True,  'useApartement': True,  'useCrafts': True}),
+                   (648518346354070691, 'Akhara',    {'printLog': False, 'useDeployables': True,  'useApartement': True,  'useCrafts': True}),
+                   (1369094286737069042,'DrZahnlos', {'printLog': False, 'useDeployables': False, 'useApartement': False, 'useCrafts': False}),
+                   (576460752317375006, 'Till',      {'printLog': False, 'useDeployables': True,  'useApartement': False, 'useCrafts': True}),
+                   (1224979098661456940,'Tzuyu',     {'printLog': False, 'useDeployables': True,  'useApartement': False, 'useCrafts': True}),                   ],
     'claim_inventory_ids_whitelist': [
         (1297036692700210919, "Sap & Kram"),
         (1297036692700645816, "Fische Stockpile"),
@@ -73,6 +75,13 @@ config = {
         (" Crop Oil", "Crop Oil"),
         (" Glass Vial", "Vial"),
         (" Sand", "Sand"),
+
+        (" Plank", "Refined Plank"),
+        (" Brick", "Refined Brick"),
+        (" Ingot", "Refined Ingot"),
+        (" Cloth", "Refined Cloth"),
+        (" Leather", "Refined Leather"),
+
 #        ("Water Bucket", "Water"),
 #        ("Pitch", "Pitch"),
 
