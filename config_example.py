@@ -30,6 +30,25 @@ config = {
         (1297036692724179871, "Holz"),
         (1297036692714046611, "Holzlager")
     ],
+    'event_inventory_ids': [
+        (1297036692700210919, "Sap & Kram"),
+        (1297036692700645816, "Fische Stockpile"),
+        (1297036692723397704, "Fische Kiste"),
+        (1297036692724185147, "Scholar Potions"),
+        (1297036692724185077, "Scholar Stadtupgrade"),
+        (1297036692724185114, "Scholar Schreibkram"),
+        (1297036692714143360, "Scholar Lager"),
+        (1297036692701184903, "Citric Braxite Fischöl"),
+        (1297036692714149937, "Cropoil Resin"),
+        (1297036692714152594, "Straw and Animal Hair"),
+        (1297036692714159073, "Gypsite Crushed Shells"),
+        (1297036692724179871, "Holz"),
+        (1297036692714046611, "Holzlager")
+    ],
+    'event_time_start':
+    'log_by_type': 'inventory',
+    'log_inventories_list': [
+        ],
     'claim_inventory_ids_blacklist': [],
     'item_type_whitelist': [],
     'item_type_blacklist': [],
