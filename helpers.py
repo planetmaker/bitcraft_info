@@ -31,3 +31,11 @@ def add_inventory_dicts(a: dict, b: dict):
             # 'contents': {'item_id': 3040002, 'quantity': 47, 'item_type': 'item'}
             # pockets:
             # 'contents': {'itemId': 5110026, 'itemType': 0, 'quantity': 10}
+
+def string_contains_substring_from_set(strg, testset):
+    if strg is None:
+        return(False)
+    for item in testset:
+        if item in strg:
+            return(True)
+    return(False)
