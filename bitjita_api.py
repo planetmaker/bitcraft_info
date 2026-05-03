@@ -253,3 +253,31 @@ def get_player_aggregate_inventories(playerInventories: dict, inventoryIDs = [])
                 # itemType is ignored as it *should* be identical
 
     return(items)
+
+def get_url_item_properties(item_id: int):
+    return("https://bitjita.com/api/items/{}".format(item_id))
+
+def get_url_cargo_properties(cargo_id: int):
+    return("https://bitjita.com/api/cargo/{}".format(cargo_id))
+
+def get_bitjita_item_properties(item_id: int):
+    url = get_url_item_properties(item_id)
+    return(read_url_json(url))
+
+def get_bitjita_cargo_properties(item_id: int):
+    url = get_url_item_properties(item_id)
+    return(read_url_json(url))
+
+def get_item_info(item_id: int, is_cargo: bool):
+    properties = get_bitjita_item_properties(item_id) if is_cargo else get_bitjita_cargo_properties(item_id)
+    return( (
+        item_id,
+        is_cargo,
+        properties['name'],
+        properties['tag'],
+        properties['tier'],
+        properties['rarity']
+        )
+    )
+
+
