@@ -1,0 +1,11 @@
+# Ignore Python stuff
+__pycache__/*
+
+# Ignore the config file (template found in config_example.py - you can symlink it)
+config.py
+
+# Ignore the token file for DB access
+spacetimedb_entity.py
+
+# Ignore the result of the inventory summary
+scholar_mats.txt
