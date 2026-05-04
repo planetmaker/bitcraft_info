@@ -11,17 +11,19 @@ import datetime
 import bitjita_api as api
 from inventories import inventories_summary
 from config import config
+from helpers import string_contains_substring_from_set
 import item_type
 
 inventory_summary = inventories_summary()
 
-# So far we only support one claim and one player
+# So far we only support one claim and one playerm
 bitjita_player_inventories = api.get_player_inventories(config['player_ids'][0][0])
 bitjita_claim_inventories  = api.get_claim_inventories(config['claim_ids'][0][0])
 
 claim_inventory_ids = []
 for inventory_id in config['claim_inventory_ids_whitelist']:
     claim_inventory_ids.append(inventory_id[0])
+
 player_inventory_ids = []
 for inventory_id in config['player_inventory_ids']:
     player_inventory_ids.append(inventory_id[0])
@@ -33,6 +35,7 @@ for k,v in player_inventories.items():
     inventory_summary.add_item(k,v,source='Player')
 for k,v in claim_inventories.items():
     inventory_summary.add_item(k,v,source='Claim')
+
 
 print("Adding crafts:")
 for (playerID, playerName, playerConfig) in config.get('player_ids'):
@@ -46,6 +49,25 @@ for (playerID, playerName, playerConfig) in config.get('player_ids'):
         print("Adding craft: {}x for {} (itemID {})".format(quantity, item_type.get_item_name(item_id), item_id))
         inventory_summary.add_item(item_id, {'quantity': quantity}, source='Craft')
 
+print("Adding player Deployables")
+player_deployables_inventories = dict()
+for (playerID, playerName, playerConfig) in config.get('player_ids'):
+    print("Deployables for {} (ID {}) with config {}".format(playerName, playerID, playerConfig))
+    if not playerConfig.get('useDeployables'):
+        continue
+    player_inventory = api.get_player_inventories(playerID)
+    for inventory in player_inventory.get('inventories'):
+        if not string_contains_substring_from_set(inventory.get('inventoryName'), config.get('DeployablesStrings')):
+            continue
+        for pocket in inventory.get('pockets'):
+            item_id = pocket.get('contents').get('itemId')
+            quantity = pocket.get('contents').get('quantity')
+            itemtypeID = pocket.get('contents').get('itemType')
+            # TODO: make use of item_type
+            print("Adding Deployable: {}x for {} (itemID {})".format(quantity, item_type.get_item_name(item_id), item_id))
+            inventory_summary.add_item(item_id, {'quantity': quantity}, source='Craft')
+            #player_deployables_inventories.add_item(item_id, {'quantity': quantity}, source='Player')
+
 print("Adding housing inventories:")
 player_housing_inventory = dict()
 for (playerID, playerName, playerConfig) in config.get('player_ids'):
@@ -53,10 +75,10 @@ for (playerID, playerName, playerConfig) in config.get('player_ids'):
     if not playerConfig.get('useApartement'):
         continue
     player_housing_inventory = api.get_player_aggregate_house_inventories(playerID, player_housing_inventory)
-    for item_id, data in player_housing_inventory.items():
-        quantity = data.get('quantity')
-        is_cargo = api.itemtype_to_isCargo(data.get('item_type'))
-        print("Adding housing inventory: {}x for {} (itemID {})".format(quantity, item_type.get_item_name(item_id, is_cargo), item_id))
+    # for item_id, data in player_housing_inventory.items():
+    #     quantity = data.get('quantity')
+    #     is_cargo = api.itemtype_to_isCargo(data.get('item_type'))
+    #     print("Adding housing inventory: {}x for {} (itemID {})".format(quantity, item_type.get_item_name(item_id, is_cargo), item_id))
 
 for k,v in player_housing_inventory.items():
    inventory_summary.add_item(k, v, source='Housing')
@@ -78,15 +100,14 @@ for cargo in config["crafting_cargo_search_strings"]:
         print(sublist)
     scholar_items.extend(sublist)
 
-for (playerID, playerName, playerConfig) in config.get('player_ids'):
-    if not playerConfig.get('printLog'):
-        continue
-    (log_details_player, log_summary_player) = api.get_player_logs(playerID, playerName)
-    print("\nLogs for all inventories of {}:".format(playerName))
-    for k,v in log_summary_player.items():
-        if v != 0:
-            print("{}: {}".format(item_type.get_item_name(k),v))
-
+# for (playerID, playerName, playerConfig) in config.get('player_ids'):
+#     if not playerConfig.get('printLog'):
+#         continue
+#     (log_details_player, log_summary_player) = api.get_player_logs(playerID, playerName)
+#     print("\nLogs for all inventories of {}:".format(playerName))
+#     for k,v in log_summary_player.items():
+#         if v != 0:
+#             print("{}: {}".format(item_type.get_item_name(k),v))
 
 # print("\nAvailable Crafting materials:")
 

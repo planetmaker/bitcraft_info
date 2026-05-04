@@ -173,7 +173,10 @@ def get_player_house_id(player_id: int):
     url = get_url_player_house(player_id)
     data = read_url_json(url)
     print("Data: ",data)
-    return(int(data[0]['buildingEntityId']))
+    try:
+        return(int(data[0]['buildingEntityId']))
+    except:
+        return(None)
 
 def add_to_inventory_dict(inventory_dict: dict, contents: dict):
     print("Contents: ",contents)
@@ -194,7 +197,11 @@ def add_to_inventory_dict(inventory_dict: dict, contents: dict):
     return(inventory_dict)
 
 def get_player_aggregate_house_inventories(player_id: int, items: dict):
-    url = get_url_player_house_inventories(player_id, get_player_house_id(player_id))
+    house_id = get_player_house_id(player_id)
+    if house_id is None:
+        print("No house found for player {}, yet it should be considered".format(player_id))
+        return(dict())
+    url = get_url_player_house_inventories(player_id, house_id)
     house_inventories = read_url_json(url)['inventories']
 
     for storage in house_inventories:
