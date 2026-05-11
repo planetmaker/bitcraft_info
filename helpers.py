@@ -7,6 +7,10 @@ Created on Wed Nov 26 10:52:06 2025
 """
 
 import requests
+import tables
+
+global items_table
+items_table = tables.df_new()
 
 def read_url_json(url: str):
     response = requests.get(url)
@@ -39,3 +43,4 @@ def string_contains_substring_from_set(strg, testset):
         if item in strg:
             return(True)
     return(False)
+

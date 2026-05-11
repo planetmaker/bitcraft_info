@@ -7,10 +7,12 @@ Created on Wed Nov 26 16:50:07 2025
 """
 
 import bitjita_api as api
-from helpers import read_url_json
+from helpers import read_url_json, items_table
+import tables
 
 cargos_info = api.get_cargos_info()
 items_info = api.get_items_info()
+
 
 def get_info(is_cargo: bool):
     if is_cargo:
@@ -183,3 +185,36 @@ def crafting_tree_to_dict(tree: dict, flat_dict = {}):
 
 def print_crafing_dict(flattened_dict: dict, ignored_items: list):
     pass
+
+
+def item_uid_from_id(item_id: int, item_type):
+    if isinstance(item_type, str):
+        is_cargo = api.itemtype_to_isCargo(item_type)
+    if isinstance(item_type, bool):
+        is_cargo = item_type
+    if isinstance(is_cargo, bool):
+        item_str = api.isCargo_to_itemtype(is_cargo)
+    else:
+        raise Exception("No valid item type given, neither bool nor valid str")
+        return
+    return("{}_{}".format(item_str, item_id))
+
+def item_id_from_uid(uid):
+    strs = uid.split('_')
+    return(strs[0],int(strs[1]))
+
+def add_item_info_from_json(raw_data, is_cargo):
+    global items_table
+    item_id = raw_data.get('id')
+    name = raw_data.get('name')
+    rarity = raw_data.get('rarity')
+    rarity_str = raw_data.get('rarity_str')
+    tier = raw_data.get('tier')
+    tag = raw_data.get('tag')
+    uid = item_uid_from_id(item_id, is_cargo)
+    items_table = tables.df_set_value(items_table, 'id', uid, item_id)
+    items_table = tables.df_set_value(items_table, 'name', uid, name)
+    items_table = tables.df_set_value(items_table, 'tag', uid, tag)
+    items_table = tables.df_set_value(items_table, 'tier', uid, tier)
+    items_table = tables.df_set_value(items_table, 'rarity', uid, rarity)
+    items_table = tables.df_set_value(items_table, 'rarity_str', uid, rarity_str)
