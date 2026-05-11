@@ -54,6 +54,15 @@ def df_new():
     df.set_index('uid')
     return(df)
 
+def df_set_value(df, column_name: str, uid: str, value):
+    if uid not in df.index:
+        df = df_insert_row(df, uid)
+    if column_name not in list(df):
+        df = df_insert_column(df, column_name)
+
+    df.at[uid, column_name] = value
+    return(df)
+
 def df_add_value(df, column_name: str, uid: str, quantity: int):
     if uid not in df.index:
         df = df_insert_row(df, uid)
@@ -61,6 +70,8 @@ def df_add_value(df, column_name: str, uid: str, quantity: int):
         df = df_insert_column(df, column_name)
 
     old = df.at[uid, column_name]
+    if old is None:
+        old = 0
     df.at[uid, column_name] = old + quantity
     return(df)
 
