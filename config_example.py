@@ -47,7 +47,7 @@ config = {
         (1297036692724179871, "Holz"),
         (1297036692714046611, "Holzlager")
     ],
-    'event_time_start':
+    'event_time_start': "2026-05-04 22:00",
     'log_by_type': 'inventory',
     'log_inventories_list': [
         ],
