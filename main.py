@@ -43,11 +43,14 @@ for (playerID, playerName, playerConfig) in config.get('player_ids'):
     if not playerConfig.get('useCrafts'):
         continue
     player_crafts = api.get_player_claim_crafts(playerID, config.get('claim_ids')[0][0])
-    for craft in player_crafts.get('craftResults'):
-        item_id = int(craft.get('craftedItem')[0].get('item_id'))
-        quantity = craft.get('craftCount')
-        print("Adding craft: {}x for {} (itemID {})".format(quantity, item_type.get_item_name(item_id), item_id))
-        inventory_summary.add_item(item_id, {'quantity': quantity}, source='Craft')
+    try:
+        for craft in player_crafts.get('craftResults'):
+            item_id = int(craft.get('craftedItem')[0].get('item_id'))
+            quantity = craft.get('craftCount')
+            print("Adding craft: {}x for {} (itemID {})".format(quantity, item_type.get_item_name(item_id), item_id))
+            inventory_summary.add_item(item_id, {'quantity': quantity}, source='Craft')
+    except:
+        print("No crafts for player {}.".format(playerName))
 
 print("Adding player Deployables")
 player_deployables_inventories = dict()
