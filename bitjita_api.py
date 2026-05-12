@@ -11,6 +11,12 @@ from helpers import read_url_json
 def get_url_claim_inventories(claimID: int):
     return("https://bitjita.com/api/claims/{}/inventories".format(claimID))
 
+def get_url_claim_members(claimID: int):
+    return("https://bitjita.com/api/claims/{}/members".format(claimID))
+
+def get_url_craft_contributions(craftID: int):
+    return("https://bitjita.com/api/crafts/{}".format(craftID))")
+
 def get_url_player_inventories(playerID: int):
     return("https://bitjita.com/api/players/{}/inventories".format(playerID))
 
@@ -286,5 +292,3 @@ def get_item_info(item_id: int, is_cargo: bool):
         properties['rarity']
         )
     )
-
-
