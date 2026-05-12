@@ -217,4 +217,4 @@ def add_item_info_from_json(raw_data, is_cargo):
     items_table = tables.df_set_value(items_table, 'tag', uid, tag)
     items_table = tables.df_set_value(items_table, 'tier', uid, tier)
     items_table = tables.df_set_value(items_table, 'rarity', uid, rarity)
-    items_table = tables.df_set_value(items_table, 'rarity_str', uid, rarity_str)
+    items_table = tables.df_set_value(items_table, 'rarityStr', uid, rarity_str)
