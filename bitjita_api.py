@@ -15,7 +15,7 @@ def get_url_claim_members(claimID: int):
     return("https://bitjita.com/api/claims/{}/members".format(claimID))
 
 def get_url_craft_contributions(craftID: int):
-    return("https://bitjita.com/api/crafts/{}".format(craftID))")
+    return("https://bitjita.com/api/crafts/{}".format(craftID))
 
 def get_url_player_inventories(playerID: int):
     return("https://bitjita.com/api/players/{}/inventories".format(playerID))
