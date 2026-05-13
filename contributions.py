@@ -12,7 +12,7 @@ import item_type as it
 
 import bitjita_api as api
 from config import config
-from helpers import read_url_json, player_log_table
+from helpers import read_url_json, player_log_table, items_table
 import datetime_helpers as dth
 
 
@@ -87,6 +87,37 @@ if __name__ == "__main__":
         player_url_logs = api.get_url_player_logs(player_id)
         player_log = read_url_json(player_url_logs)
         player_log_table = add_player_storage_logs_to_DataFrame(player_log_table, player_log)
+
+    for item in player_log.get('items'):
+        it.add_item_info_from_json(item, False)
+    for cargo in player_log.get('cargos'):
+        it.add_item_info_from_json(cargo, True)
+
+    for i,row in player_log_table.iterrows():
+        uid = i
+        try:
+            name = it.items_table['name', uid]
+            tag = it.items_table['tag', uid]
+        except:
+            print("Item ID not found in table: {}".format(uid))
+            is_cargo, item_id = it.item_id_from_uid(uid)
+            if is_cargo:
+                url = api.get_url_cargo_by_id(item_id)
+                raw_data = read_url_json(url).get('cargo')
+
+            else:
+                url = api.get_url_item_by_id(item_id)
+                raw_data = read_url_json(url).get('item')
+
+            it.add_item_info_from_json(raw_data, is_cargo)
+            name = raw_data.get('name')
+            tag = raw_data.get('tag')
+            # name = it.items_table['name', uid]
+            # tag = it.items_table['tag', uid]
+
+        player_log_table = tables.df_set_value(player_log_table, 'Item Name', uid, name)
+        player_log_table = tables.df_set_value(player_log_table, 'Tag', uid, tag)
+
 
         # print(player_url_logs)
         # print(player_log)

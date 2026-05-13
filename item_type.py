@@ -201,20 +201,38 @@ def item_uid_from_id(item_id: int, item_type):
 
 def item_id_from_uid(uid):
     strs = uid.split('_')
-    return(strs[0],int(strs[1]))
+    is_cargo = api.itemtype_to_isCargo(strs[0])
+    return(is_cargo, int(strs[1]))
+
+def rarity_str_to_rarity(rarity_str):
+    if rarity_str == 'Common':
+        return(1)
+    if rarity_str == 'Uncommon':
+        return(2)
+    if rarity_str == 'Rare':
+        return(3)
+    if rarity_str == 'Epic':
+        return(4)
+    if rarity_str == 'Legendary':
+        return(5)
+    if rarity_str == 'Mythic':
+        return(6)
+    return(None)
 
 def add_item_info_from_json(raw_data, is_cargo):
     global items_table
     item_id = raw_data.get('id')
     name = raw_data.get('name')
-    rarity = raw_data.get('rarity')
     rarity_str = raw_data.get('rarityStr')
     tier = raw_data.get('tier')
     tag = raw_data.get('tag')
     uid = item_uid_from_id(item_id, is_cargo)
+    rarity = raw_data.get('rarity')
+    if rarity is None and rarity_str is not None:
+        rarity = rarity_str_to_rarity(rarity_str)
     items_table = tables.df_set_value(items_table, 'id', uid, item_id)
     items_table = tables.df_set_value(items_table, 'name', uid, name)
     items_table = tables.df_set_value(items_table, 'tag', uid, tag)
     items_table = tables.df_set_value(items_table, 'tier', uid, tier)
-    items_table = tables.df_set_value(items_table, 'rarity', uid, rarity)
     items_table = tables.df_set_value(items_table, 'rarity_str', uid, rarity_str)
+    items_table = tables.df_set_value(items_table, 'rarity', uid, rarity)

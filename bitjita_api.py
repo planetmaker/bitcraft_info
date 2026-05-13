@@ -44,6 +44,14 @@ def get_url_player_claim_crafts(playerID: int, claimID: int):
     # url = "https://bitjita.com/api/crafts?claimEntityId={}&playerEntityId={}".format(claimID, playerID)
     # return url
 
+def get_url_cargo_by_id(cargo_id):
+    url = "https://bitjita.com/api/cargo/{}".format(cargo_id)
+    return(url)
+
+def get_url_item_by_id(item_id):
+    url = "https://bitjita.com/api/items/{}".format(item_id)
+    return(url)
+
 def get_url_cargos_info(search_str = None):
     url = "https://bitjita.com/api/cargo"
     if search_str is not None:
