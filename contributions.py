@@ -88,12 +88,10 @@ if __name__ == "__main__":
         print("Adding {}".format(player.get('userName')))
         add_player_to_DataFrame(player)
 
-    for player_config in config.get('player_ids'):
-        if not player_config[2].get('printLog'):
-            continue
-
-        player_id = player_config[0]
-        time_since_string = dth.time_string_offset(offset_hours = -config.get('days_backlog'))
+    time_since_string = dth.time_string_offset(offset_hours = -config.get('days_backlog'))
+    for player_id in claim_members_table.index:
+        # if not player_config[2].get('printLog'):
+        #     continue
 
         player_url_logs = api.get_url_player_logs(player_id)
         player_log = read_url_json(player_url_logs)
@@ -130,6 +128,6 @@ if __name__ == "__main__":
         player_log_table = tables.df_set_value(player_log_table, 'Item Name', uid, name)
         player_log_table = tables.df_set_value(player_log_table, 'Tag', uid, tag)
 
-
+    player_log_table.to_csv('logs/contributions.csv')
         # print(player_url_logs)
         # print(player_log)
