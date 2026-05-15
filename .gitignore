@@ -9,3 +9,5 @@ spacetimedb_entity.py
 
 # Ignore the result of the inventory summary
 scholar_mats.txt
+
+logs/**
