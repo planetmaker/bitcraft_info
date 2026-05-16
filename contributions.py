@@ -45,14 +45,18 @@ def building_to_buildingtype(building):
 def add_player_storage_logs_to_DataFrame(df, player_log):
     results_chests = dict()
     results_barters = dict()
-    for log in player_log['logs']:
-        player_name = log['subjectName']
-        sign = storagetype_to_sign(log['data'].get('type'))
-        quantity = log['data'].get('quantity')
-        item_id = log['data'].get('item_id')
-        item_type = log['data'].get('item_type')
-        uid = it.item_uid_from_id(item_id, item_type)
-        df = tables.df_add_value(df, player_name, uid, quantity * sign)
+    try:
+        for log in player_log['logs']:
+            player_name = log['subjectName']
+            sign = storagetype_to_sign(log['data'].get('type'))
+            quantity = log['data'].get('quantity')
+            item_id = log['data'].get('item_id')
+            item_type = log['data'].get('item_type')
+            uid = it.item_uid_from_id(item_id, item_type)
+            df = tables.df_add_value(df, player_name, uid, quantity * sign)
+    except:
+        print("Empty log given")
+        pass
     return(df)
 
 def add_player_to_DataFrame(player):
@@ -88,14 +92,15 @@ if __name__ == "__main__":
         print("Adding {}".format(player.get('userName')))
         add_player_to_DataFrame(player)
 
-    time_since_string = dth.time_string_offset(offset_hours = -config.get('days_backlog'))
+    time_since_string = dth.time_string_offset(offset_hours = -config.get('days_backlog')*24)
     for player_id in claim_members_table.index:
         # if not player_config[2].get('printLog'):
         #     continue
 
-        player_url_logs = api.get_url_player_logs(player_id)
+        player_url_logs = api.get_url_player_logs(player_id, since=time_since_string)
         player_log = read_url_json(player_url_logs)
         player_log_table = add_player_storage_logs_to_DataFrame(player_log_table, player_log)
+        print("Added Logs for {} ({} entries)".format(claim_members_table[player_id, 'name'], len(player_log.get('logs'))))
 
     # Add items from the item table provided along with the logs
     for item in player_log.get('items'):
@@ -128,6 +133,6 @@ if __name__ == "__main__":
         player_log_table = tables.df_set_value(player_log_table, 'Item Name', uid, name)
         player_log_table = tables.df_set_value(player_log_table, 'Tag', uid, tag)
 
-    player_log_table.to_csv('logs/contributions.csv')
+    player_log_table.to_csv(config.get('filename_contributions'))
         # print(player_url_logs)
         # print(player_log)
