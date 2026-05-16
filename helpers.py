@@ -26,7 +26,7 @@ def read_url_json(url: str):
     if response.status_code == 200:
         return(response.json())
 
-    print("Error loading inventories from URL: ", url)
+    raise Exception("Error accessing Bitjita API: {}\nHTTP Error code: {}".format(url, response.status_code))
     return({})
 
 def add_inventory_dicts(a: dict, b: dict):
@@ -51,4 +51,3 @@ def string_contains_substring_from_set(strg, testset):
         if item in strg:
             return(True)
     return(False)
-
