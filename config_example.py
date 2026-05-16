@@ -8,16 +8,18 @@ Created on Wed Nov 26 14:44:05 2025
 
 config = {
     'filename_material_list': 'scholar_mats.txt',
-    'days_backlog': 1,
+    'filename_contributions': 'logs/contributions.csv',
+    'days_backlog': 14,
     'DeployablesStrings': ("Personal Cache"),
     'claim_ids': [(1297036692700056569, 'Bitbucht')],
     'player_ids': [(576460752317375674, 'Elke',      {'printLog': True,  'useDeployables': True,  'useApartement': True,  'useCrafts': True}),
                    (1297036692699953494,'Tescha',    {'printLog': False, 'useDeployables': True,  'useApartement': True,  'useCrafts': True}),
-                   (648518346354070691, 'Akhara',    {'printLog': False, 'useDeployables': True,  'useApartement': True,  'useCrafts': True}),
+                   (648518346354070691, 'Akhara',    {'printLog': True, 'useDeployables': True,  'useApartement': True,  'useCrafts': True}),
                    (1369094286737069042,'DrZahnlos', {'printLog': False, 'useDeployables': False, 'useApartement': False, 'useCrafts': False}),
-                   (576460752317375006, 'Till',      {'printLog': False, 'useDeployables': True,  'useApartement': False, 'useCrafts': True}),
-                   (1224979098661456940,'Tzuyu',     {'printLog': False, 'useDeployables': True,  'useApartement': False, 'useCrafts': True}),                   ],
-    'claim_inventory_ids_whitelist': [
+                   (576460752317375006, 'Till',      {'printLog': True, 'useDeployables': True,  'useApartement': False, 'useCrafts': True}),
+                   (1224979098661456940,'Tzuyu',     {'printLog': False, 'useDeployables': False,  'useApartement': False, 'useCrafts': False}),
+                   ],
+    'claim_inventory_ids': [
         (1297036692700210919, "Sap & Kram"),
         (1297036692700645816, "Fische Stockpile"),
         (1297036692723397704, "Fische Kiste"),
@@ -32,6 +34,7 @@ config = {
         (1297036692724179871, "Holz"),
         (1297036692714046611, "Holzlager")
     ],
+    'claim_inventory_ids_is_blacklist': False,
     'event_inventory_ids': [
         (1297036692700210919, "Sap & Kram"),
         (1297036692700645816, "Fische Stockpile"),
@@ -47,6 +50,7 @@ config = {
         (1297036692724179871, "Holz"),
         (1297036692714046611, "Holzlager")
     ],
+    'event_inventory_ids_is_blacklist': False,
     'event_time_start': "2026-05-04 22:00",
     'log_by_type': 'inventory',
     'log_inventories_list': [
