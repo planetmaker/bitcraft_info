@@ -19,7 +19,7 @@ config = {
                    (576460752317375006, 'Till',      {'printLog': True, 'useDeployables': True,  'useApartement': False, 'useCrafts': True}),
                    (1224979098661456940,'Tzuyu',     {'printLog': False, 'useDeployables': False,  'useApartement': False, 'useCrafts': False}),
                    ],
-    'claim_inventory_ids': [
+    'scholar_inventory_ids_whitelist': [
         (1297036692700210919, "Sap & Kram"),
         (1297036692700645816, "Fische Stockpile"),
         (1297036692723397704, "Fische Kiste"),
@@ -34,8 +34,7 @@ config = {
         (1297036692724179871, "Holz"),
         (1297036692714046611, "Holzlager")
     ],
-    'claim_inventory_ids_is_blacklist': False,
-    'event_inventory_ids': [
+    'event_inventory_ids_whitelist': [
         (1297036692700210919, "Sap & Kram"),
         (1297036692700645816, "Fische Stockpile"),
         (1297036692723397704, "Fische Kiste"),
@@ -50,7 +49,6 @@ config = {
         (1297036692724179871, "Holz"),
         (1297036692714046611, "Holzlager")
     ],
-    'event_inventory_ids_is_blacklist': False,
     'event_time_start': "2026-05-04 22:00",
     'log_by_type': 'inventory',
     'log_inventories_list': [
