@@ -14,8 +14,7 @@ import item_type as it
 import bitjita_api as api
 from config import config
 from helpers import read_url_json, player_log_table, items_table
-
-
+import inventories
 
 def storagetype_to_sign(storage_type: str):
     if storage_type == 'withdraw_item':
@@ -88,6 +87,9 @@ if __name__ == "__main__":
     claim_members_table = tables.df_new()
     url = api.get_url_claim_members(config.get('claim_ids')[0][0])
     raw_data = read_url_json(url)
+
+    inventories.update_town_inventories()
+
     for player in raw_data.get('members'):
         print("Adding {}".format(player.get('userName')))
         add_player_to_DataFrame(player)
@@ -100,7 +102,7 @@ if __name__ == "__main__":
         player_url_logs = api.get_url_player_logs(player_id, since=time_since_string)
         player_log = read_url_json(player_url_logs)
         player_log_table = add_player_storage_logs_to_DataFrame(player_log_table, player_log)
-        print("Added Logs for {} ({} entries)".format(claim_members_table[player_id, 'name'], len(player_log.get('logs'))))
+        print("Added Logs for {} ({} entries)".format(claim_members_table.at[player_id, 'name'], len(player_log.get('logs'))))
 
     # Add items from the item table provided along with the logs
     for item in player_log.get('items'):
