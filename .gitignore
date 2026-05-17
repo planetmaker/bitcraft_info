@@ -11,3 +11,4 @@ spacetimedb_entity.py
 scholar_mats.txt
 
 logs/**
+cache/**
