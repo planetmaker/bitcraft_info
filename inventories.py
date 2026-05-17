@@ -16,6 +16,7 @@ import tables
 import helpers
 import bitjita_api as api
 import item_type as it
+import cache
 from helpers import items_table, claim_buildings, claim_inventory, player_houses_inventory, player_deployables_inventory
 
 from config import config as config
@@ -93,17 +94,29 @@ def add_building_inventory(building_data):
     for slot in building_data.get('inventory'):
         add_to_claim_inventory(building_id, slot)
 
+def add_storage_building(building_data):
+    global claim_buildings
+    building_id = building_data.get('entityId')
+    building_type = building_data.get('buildingName')
+    building_name = building_data.get('buildingNickname')
+    claim_buildings = tables.df_set_value(claim_buildings, 'type', building_id, building_type)
+    claim_buildings = tables.df_set_value(claim_buildings, 'name', building_id, building_name)
 
 # Read all town storages into a pandas DataFrame
 def update_town_inventories(claim_id = config.get('claim_ids')[0][0]):
+    cache.read_cache('items')
     url = api.get_url_claim_inventories(claim_id)
     raw_data = helpers.read_url_json(url)
     for building in raw_data.get('buildings'):
+        add_storage_building(building)
         add_building_inventory(building)
     for item in raw_data.get('items'):
         it.add_item_info_from_json(item, False)
     for cargo in raw_data.get('cargos'):
         it.add_item_info_from_json(cargo, True)
+    cache.write_cache('items')
 
 if __name__ == "__main__":
+    cache.read_cache()
     update_town_inventories()
+    cache.write_cache()
