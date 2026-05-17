@@ -9,6 +9,7 @@ import pandas as pd
 from datetime import datetime
 import datetime_helpers as dth
 import tables
+import cache
 import item_type as it
 
 import bitjita_api as api
@@ -80,6 +81,7 @@ def add_player_to_DataFrame(player):
 if __name__ == "__main__":
     global player_log_table
     global claim_members_table
+    cache.read_cache()
     player_log_table = tables.df_new()
     player_log_table = tables.df_insert_column(player_log_table, 'Item Name')
     player_log_table = tables.df_insert_column(player_log_table, 'Tag')
@@ -136,5 +138,7 @@ if __name__ == "__main__":
         player_log_table = tables.df_set_value(player_log_table, 'Tag', uid, tag)
 
     player_log_table.to_csv(config.get('filename_contributions'))
+    cache.write_cache()
+
         # print(player_url_logs)
         # print(player_log)
