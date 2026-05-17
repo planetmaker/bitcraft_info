@@ -9,7 +9,8 @@ Created on Wed Nov 26 14:44:05 2025
 config = {
     'filename_material_list': 'scholar_mats.txt',
     'filename_contributions': 'logs/contributions.csv',
-    'days_backlog': 14,
+    'cache': set('items'),
+    'days_backlog': 7,
     'DeployablesStrings': ("Personal Cache"),
     'claim_ids': [(1297036692700056569, 'Bitbucht')],
     'player_ids': [(576460752317375674, 'Elke',      {'printLog': True,  'useDeployables': True,  'useApartement': True,  'useCrafts': True}),
