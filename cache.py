@@ -11,7 +11,7 @@ from helpers import items_table, claim_members_table, claim_buildings, claim_inv
 from config import config
 
 cache_path = 'cache/'
-filename_items_table = cache_path + 'items_cache.csv'
+filename_items_cache = cache_path + 'items_cache.csv'
 
 def write_cache(what = None):
     if what is None:
@@ -25,7 +25,10 @@ def read_cache(what = None):
         what = config.get('cache')
     if 'items' in what:
         global items_table
-        items_table = pd.read_csv(filename_items_cache)
+        try:
+            items_table = pd.read_csv(filename_items_cache)
+        except FileNotFoundError:
+            pass
 
 if __name__ == "__main__":
     read_cache()
