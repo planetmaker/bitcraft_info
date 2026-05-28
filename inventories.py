@@ -12,12 +12,14 @@ Created on Wed Nov 26 14:02:31 2025
 
 import pandas as pd
 import tables
+# import variables
+from variables import *
 
 import helpers
 import bitjita_api as api
 import item_type as it
 import cache
-from helpers import items_table, claim_buildings, claim_inventory, player_houses_inventory, player_deployables_inventory
+# from helpers import items_table, claim_buildings, claim_inventory, player_houses_inventory, player_deployables_inventory
 
 from config import config as config
 
@@ -85,7 +87,7 @@ def add_to_claim_inventory(inventory_id, item_slot):
     item_type = item_slot.get('contents').get('item_type')
     uid = it.item_uid_from_id(item_id, item_type)
     quantity = item_slot.get('contents').get('quantity')
-    tables.df_add_value(claim_inventory, inventory_id, uid, quantity)
+    claim_inventory = tables.df_add_value(claim_inventory, inventory_id, uid, quantity)
 
 def add_building_inventory(building_data):
     building_id = building_data.get('entityId')
@@ -116,7 +118,9 @@ def update_town_inventories(claim_id = config.get('claim_ids')[0][0]):
         it.add_item_info_from_json(cargo, True)
     cache.write_cache('items')
 
+def update_player_housing_inventories(claim_id = config.get('claim_ids')[0][0]):
+    cache.read('items')
+    url = api.get_url_claim_members
+
 if __name__ == "__main__":
-    cache.read_cache()
     update_town_inventories()
-    cache.write_cache()

@@ -8,6 +8,7 @@ Created on Wed Nov 26 14:44:05 2025
 
 config = {
     'filename_material_list': 'scholar_mats.txt',
+    'filename_townupgrade':   'town_upgrade.csv',
     'filename_contributions': 'logs/contributions.csv',
     'cache': ('items'),
     'days_backlog': 7,

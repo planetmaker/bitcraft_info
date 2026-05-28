@@ -7,12 +7,13 @@ Created on Wed Nov 26 16:50:07 2025
 """
 
 import bitjita_api as api
-from helpers import read_url_json, items_table
+from helpers import read_url_json # , var.items_table
+from variables import *
+# import helpers
 import tables
 
 cargos_info = api.get_cargos_info()
 items_info = api.get_items_info()
-
 
 def get_info(is_cargo: bool):
     if is_cargo:
@@ -218,6 +219,34 @@ def rarity_str_to_rarity(rarity_str):
     if rarity_str == 'Mythic':
         return(6)
     return(None)
+
+def add_item_info_to_table(df, column_names = None):
+    global items_table
+
+    if column_names is None:
+        column_names = list(items_table.columns)
+    for column_name in column_names:
+        df[column_name] = None
+    for uid,rows in df.iterrows():
+        try:
+            name = items_table.at[uid, 'name']
+            if name is None:
+                raise
+            print("Found uid {}".format(uid))
+        except:
+            print("Item ID not found in table: {}".format(uid))
+            is_cargo, item_id = item_id_from_uid(uid)
+            if is_cargo:
+                url = api.get_url_cargo_by_id(item_id)
+                raw_data = read_url_json(url).get('cargo')
+            else:
+                url = api.get_url_item_by_id(item_id)
+                raw_data = read_url_json(url).get('item')
+
+            add_item_info_from_json(raw_data, is_cargo)
+        for column_name in column_names:
+            df = tables.df_set_value(df, column_name, uid, items_table.at[uid, column_name])
+    return(df)
 
 def add_item_info_from_json(raw_data, is_cargo):
     global items_table
