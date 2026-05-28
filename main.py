@@ -52,7 +52,7 @@ for (playerID, playerName, playerConfig) in config.get('player_ids'):
     except:
         print("No crafts for player {}.".format(playerName))
 
-print("Adding player Deployables")
+print("Adding player deployables")
 player_deployables_inventories = dict()
 for (playerID, playerName, playerConfig) in config.get('player_ids'):
     print("Deployables for {} (ID {}) with config {}".format(playerName, playerID, playerConfig))
@@ -62,12 +62,13 @@ for (playerID, playerName, playerConfig) in config.get('player_ids'):
     for inventory in player_inventory.get('inventories'):
         if not string_contains_substring_from_set(inventory.get('inventoryName'), config.get('DeployablesStrings')):
             continue
+        print("Adding {} for player {}".format(inventory.get('inventoryName'), playerName))
         for pocket in inventory.get('pockets'):
             item_id = pocket.get('contents').get('itemId')
             quantity = pocket.get('contents').get('quantity')
             itemtypeID = pocket.get('contents').get('itemType')
             # TODO: make use of item_type
-            print("Adding Deployable: {}x for {} (itemID {})".format(quantity, item_type.get_item_name(item_id), item_id))
+            print("Adding from deployable: {}x for {} (itemID {})".format(quantity, item_type.get_item_name(item_id), item_id))
             inventory_summary.add_item(item_id, {'quantity': quantity}, source='Craft')
             #player_deployables_inventories.add_item(item_id, {'quantity': quantity}, source='Player')
 
