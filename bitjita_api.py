@@ -7,6 +7,7 @@ Created on Wed Nov 26 10:03:37 2025
 """
 
 from helpers import read_url_json
+from config import config
 
 def get_url_claim_inventories(claimID: int):
     return("https://bitjita.com/api/claims/{}/inventories".format(claimID))
@@ -193,11 +194,13 @@ def get_player_house_id(player_id: int):
         return(None)
 
 def add_to_inventory_dict(inventory_dict: dict, contents: dict):
-    print("Contents: ",contents)
-    print("Inventory dict: ", inventory_dict)
+    # print("Contents: ",contents)
+    # print("Inventory dict: ", inventory_dict)
     itemID = contents["item_id"]
     amount = contents["quantity"]
     itemType = contents["item_type"]
+    if itemID == config.get('search_item'):
+        print("Adding {}: {}x".format(itemID, amount))
     if itemID not in inventory_dict:
         print("Adding new item {} for housing".format(itemID))
         inventory_dict[itemID] = {
