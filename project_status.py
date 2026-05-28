@@ -7,8 +7,6 @@ Created on Wed Nov 26 14:38:47 2025
 """
 
 from config import config
-import helpers
-import bitjita_api as api
 import tables
 import item_type as it
 from variables import *
@@ -16,6 +14,7 @@ import inventories
 import cache
 
 if __name__ == "__main__":
+    global claim_inventory
     cache.read_cache()
     project_inventory = tables.df_new()
     output_columns = ['name', 'tag', 'tier']
