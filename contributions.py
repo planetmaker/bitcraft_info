@@ -8,13 +8,14 @@ Created on Sun Apr 12 16:15:25 2026
 import pandas as pd
 from datetime import datetime
 import datetime_helpers as dth
+from variables import *
 import tables
 import cache
 import item_type as it
 
 import bitjita_api as api
 from config import config
-from helpers import read_url_json, player_log_table, items_table
+from helpers import read_url_json #, player_log_table, items_table
 import inventories
 
 def storagetype_to_sign(storage_type: str):
@@ -80,7 +81,7 @@ def add_player_to_DataFrame(player):
 
 if __name__ == "__main__":
     global player_log_table
-    global claim_members_table
+    global items_table
     cache.read_cache()
     player_log_table = tables.df_new()
     player_log_table = tables.df_insert_column(player_log_table, 'Item Name')
@@ -88,11 +89,11 @@ if __name__ == "__main__":
 
     claim_members_table = tables.df_new()
     url = api.get_url_claim_members(config.get('claim_ids')[0][0])
-    raw_data = read_url_json(url)
+    raw_claim_member_data = read_url_json(url)
 
     inventories.update_town_inventories()
 
-    for player in raw_data.get('members'):
+    for player in raw_claim_member_data.get('members'):
         print("Adding {}".format(player.get('userName')))
         add_player_to_DataFrame(player)
 
@@ -113,18 +114,23 @@ if __name__ == "__main__":
         it.add_item_info_from_json(cargo, True)
 
     # Populate the item info
-    for i,row in player_log_table.iterrows():
-        uid = i
+    new_id = 0
+    total_id = 0
+    new_id_list = []
+    for uid,row in player_log_table.iterrows():
+        total_id += 1
         try:
-            name = it.items_table['name', uid]
-            tag = it.items_table['tag', uid]
+            name = items_table.at[uid, 'name']
+            tag = items_table.at[uid, 'tag']
+            print("Found uid {}".format(uid))
         except:
+            new_id += 1
+            new_id_list.append(uid)
             print("Item ID not found in table: {}".format(uid))
             is_cargo, item_id = it.item_id_from_uid(uid)
             if is_cargo:
                 url = api.get_url_cargo_by_id(item_id)
                 raw_data = read_url_json(url).get('cargo')
-
             else:
                 url = api.get_url_item_by_id(item_id)
                 raw_data = read_url_json(url).get('item')
