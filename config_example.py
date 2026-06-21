@@ -82,7 +82,8 @@ config = {
         "Ink Package",
         "Pigment Package",
         "Glass Vial Package",
-        "Pebbles Package"
+        "Pebbles Package",
+        "Fish Oil Package",
         ],
     'crafting_item_search_strings': [
         # Name search string, tag search string)
