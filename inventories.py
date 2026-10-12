@@ -16,14 +16,9 @@ import tables
 import helpers
 import bitjita_api as api
 import item_type as it
-from helpers import items_table
+from helpers import items_table, claim_buildings, claim_inventory, player_houses_inventory, player_deployables_inventory
 
 from config import config as config
-
-claim_buildings = tables.df_new()
-claim_inventory = tables.df_new()
-player_houses_inventory = tables.df_new()
-player_deployables_inventory = tables.df_new()
 
 class inventories_summary:
     def __init__(self):

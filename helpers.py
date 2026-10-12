@@ -11,6 +11,14 @@ import tables
 
 global items_table
 items_table = tables.df_new()
+claim_members_table = tables.df_new()
+
+claim_buildings = tables.df_new()
+claim_inventory = tables.df_new()
+player_houses_inventory = tables.df_new()
+player_deployables_inventory = tables.df_new()
+
+player_log_table = tables.df_new()
 
 def read_url_json(url: str):
     response = requests.get(url)

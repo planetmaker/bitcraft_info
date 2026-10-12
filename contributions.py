@@ -12,17 +12,16 @@ import item_type as it
 
 import bitjita_api as api
 from config import config
-from helpers import read_url_json
+from helpers import read_url_json, player_log_table
 import datetime_helpers as dth
 
-player_log_table = tables.df_new()
 
 def storagetype_to_sign(storage_type: str):
     if storage_type == 'withdraw_item':
         return(-1)
     if storage_type == 'deposit_item':
         return(1)
-    print("Unknown storage type: {}".format(storagetype))
+    print("Unknown storage type: {}".format(storage_type))
     return(0)
 
 def building_to_buildingtype(building):
